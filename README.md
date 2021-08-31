@@ -1,16 +1,16 @@
 # Woosmap Geofencing SDK Cordova Plugin
 
-**Prepration of Mac/Windows for Cordova**
+**Preparation of Mac/Windows for Cordova**
 
-This article helps you to setup cordova enviroment on MAC platfrom
+This article helps you to setup cordova environment on iOS platform
 
 https://www.tomspencer.dev/blog/2017/05/29/a-guide-to-installing-cordova-on-your-mac/
 
-This article helps you to setup cordova enviroment on windows platfrom
+This article helps you to setup cordova environment on windows platform
 
 https://www.tomspencer.dev/blog/2017/05/30/a-guide-to-installing-cordova-on-windows-10/
 
-**Running cordova sample app on iOS platfrom**
+**Running cordova sample app on iOS platform**
 
 **First time installation**
 ```
@@ -28,7 +28,7 @@ https://www.tomspencer.dev/blog/2017/05/30/a-guide-to-installing-cordova-on-wind
 
 ========================================================================================
 
-Running cordova sample app on Android platfrom
+Running cordova sample app on Android platform
 ```
 > cd woosmap-geofencing-sample
 > cordova plugin add cordova-plugin-androidx
