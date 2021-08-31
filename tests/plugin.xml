@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:rim="http://www.blackberry.com/ns/widgets"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-woosmapgeofencing-tests"
+        version="0.0.1">
+    <name>WoosGeofenceing Plugin Tests</name>
+    <license>Apache 2.0</license>
+
+    <js-module src="tests.js" name="tests">
+    </js-module>
+    <platform name="ios">
+      <resource-file src="datadump/Locations.csv" target="datadump/Locations.csv" />
+      <resource-file src="datadump/Visit_qualif.csv" target="datadump/Visit_qualif.csv" />
+    </platform>
+</plugin>

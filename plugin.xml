@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="cordova-plugin-woosmapgeofencing" version="0.0.3" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>WoosmapGeofencing</name>
+  <js-module name="WoosmapGeofencing" src="www/WoosmapGeofencing.js">
+    <clobbers target="cordova.plugins.WoosmapGeofencing" />
+  </js-module>
+   <js-module name="WoosmapDb" src="www/WoosmapDb.js">
+    <clobbers target="cordova.plugins.WoosmapDb" />
+  </js-module>
+    <js-module name="Location" src="www/Location.js">
+        <clobbers target="WoosmapGeofencing.Location" />
+    </js-module>
+    <js-module name="Poi" src="www/Poi.js">
+        <clobbers target="WoosmapGeofencing.Poi" />
+    </js-module>
+    <js-module name="Region" src="www/Region.js">
+        <clobbers target="WoosmapGeofencing.Region" />
+    </js-module>
+    <js-module name="Visit" src="www/Visit.js">
+        <clobbers target="WoosmapGeofencing.Visit" />
+    </js-module>
+    <js-module name="Zoi" src="www/Zoi.js">
+        <clobbers target="WoosmapGeofencing.Zoi" />
+    </js-module>
+    <js-module name="Airship" src="www/Airship.js">
+        <clobbers target="WoosmapGeofencing.Airship" />
+    </js-module>
+  <platform name="ios">
+    <config-file parent="/*" target="config.xml">
+      <feature name="WoosmapGeofencing">
+        <param name="ios-package" value="CDVWoosmapGeofencing" />
+      </feature>
+    </config-file>
+    <source-file src="src/ios/WoosmapGeofencing.swift" />
+    <source-file src="src/ios/WoosmapGeofenceService.swift" />
+    <source-file src="src/ios/DataDistance.swift" />
+    <source-file src="src/ios/AirshipEvents.swift" />
+    <source-file src="src/ios/DataLocation.swift" />
+    <source-file src="src/ios/DataPOI.swift" />
+    <source-file src="src/ios/DataRegion.swift" />
+    <source-file src="src/ios/DataVisit.swift" />
+    <source-file src="src/ios/DataZOI.swift" />
+    <source-file src="src/ios/MockDataVisit.swift" />
+      <source-file src="src/ios/WoosmapGeofenceMessage.swift" />
+
+
+    <preference name="UseSwiftLanguageVersion" value="5" default="5" />
+    <preference name="NS_LOCATION_WHEN_IN_USE_USAGE_DESCRIPTION" default="This app uses your location for geofencing." />
+    <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+        <string>$NS_LOCATION_WHEN_IN_USE_USAGE_DESCRIPTION</string>
+    </config-file>
+
+    <preference name="NS_LOCATION_ALWAYS_AND_WHEN_IN_USE_USAGE_DESCRIPTION" default="This app uses your location for geofencing." />
+    <config-file target="*-Info.plist" parent="NSLocationAlwaysAndWhenInUseUsageDescription">
+        <string>$NS_LOCATION_ALWAYS_AND_WHEN_IN_USE_USAGE_DESCRIPTION</string>
+    </config-file>
+
+    <preference name="NS_LOCATION_ALWAYS_USAGE_DESCRIPTION" default="This app uses your location for geofencing." />
+    <config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
+        <string>$NS_LOCATION_ALWAYS_USAGE_DESCRIPTION</string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="UIBackgroundModes">
+      <array>
+        <string>location</string>
+      </array>
+    </config-file>
+    <podspec>
+      <config>
+        <source url="https://github.com/CocoaPods/Specs.git"/>
+      </config>
+      <pods use-frameworks="true" inhibit-all-warnings="true">
+        <pod name="WoosmapGeofencing" git = "https://github.com/woosmap/woosmap-geofencing-ios-sdk.git" swift-version="5" />
+      </pods>
+    </podspec>
+  </platform>
+  <platform name="android">
+	<framework src="src/android/woosmap.gradle" custom="true" type="gradleReference"/>
+	<resource-file src="src/android/visit_qualif.csv" target="res/raw/visit_qualif.csv" />
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="WoosmapGeofencing">
+        <param name="android-package" value="cordova.plugin.woosmapgeofencing.WoosmapGeofencing" />
+      </feature>
+	  <preference name="GradlePluginGoogleServicesEnabled" value="true" />
+	  <preference name="GradlePluginGoogleServicesVersion" value="4.2.0" />
+    </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml">
+		<uses-permission android:name="android.permission.INTERNET" />
+		<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+		<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+		<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+		<uses-permission android:name="android.location.GPS_ENABLED_CHANGE" />
+		<uses-permission android:name="android.permission.VIBRATE" />
+		<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    </config-file>
+	<config-file parent="/manifest/application" target="AndroidManifest.xml">
+		<service android:name="com.webgeoservices.woosmapgeofencing.WoosmapInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.webgeoservices.woosmapgeofencing.WoosmapMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+		<receiver android:name="cordova.plugin.woosmapgeofencing.RunOnStartup">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+    </config-file>
+    <source-file src="src/android/WoosmapGeofencing.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/Watchable.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/WoosDistanceAPIReadyListener.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/WoosLocationReadyListener.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/WoosRegionLogReadyListener.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/WoosRegionReadyListener.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/WoosSearchAPIReadyListener.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/WoosVisitReadyListener.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/RunOnStartup.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/WoosmapDbTasks.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/WoosmapUtil.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/WoosAirshipReadyListener.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/TestUtil.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+  </platform>
+</plugin>
