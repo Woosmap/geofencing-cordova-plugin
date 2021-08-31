@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-woosmapgeofencing",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "WGS cordova app",
   "cordova": {
     "id": "cordova-plugin-woosmapgeofencing",
