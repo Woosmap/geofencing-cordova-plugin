@@ -2,11 +2,11 @@
 
 **Preparation of Mac/Windows for Cordova**
 
-This article helps you to setup cordova environment on iOS platform
+This article helps you to setup cordova environment on the iOS platform
 
 https://www.tomspencer.dev/blog/2017/05/29/a-guide-to-installing-cordova-on-your-mac/
 
-This article helps you to setup cordova environment on windows platform
+This article helps you to setup cordova environment on the windows platform
 
 https://www.tomspencer.dev/blog/2017/05/30/a-guide-to-installing-cordova-on-windows-10/
 
@@ -19,7 +19,7 @@ https://www.tomspencer.dev/blog/2017/05/30/a-guide-to-installing-cordova-on-wind
 > cordova plugin add cordova-plugin-add-swift-support --save
 > cordova plugin add https://github.com/sanginfolbs/wgs_geofencing_cordova_release.git
 ```
-**ReInstallation of plugin**
+**Re-installation of plugin**
 ```
 > cd woosmap-geofencing-sample
 > cordova plugin remove cordova-plugin-woosmapgeofencing
