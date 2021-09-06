@@ -198,14 +198,124 @@ Method `startTracking` accepts only following tracking profiles
 ### Listening to events
 ---
 
+**Location** 
 
+To listen to location call `watchLocation` method. Method will invoke callback and pass a location object as a parameter. Method will return a watchId . This id can be used to remove a callback.
 
+```
+var locationWatchId = cordova.plugins.WoosmapGeofencing.watchLocation(success, error);
+```
 
+To stop getting location updates
 
+```
+cordova.plugins.WoosmapGeofencing.clearLocationWatch(locationWatchId, success, error);
+```
 
+**Search API** 
 
+To listen to Search API results Call `watchSearchApi` method. Method will invoke a callback with POI object. Method will return a watch id which can be used later to remove the callback.
 
+```
+var searchAPIWatchId = cordova.plugins.WoosmapGeofencing.watchSearchAPI(success, error);
+```
 
+To stop getting Search API updates
 
+```
+cordova.plugins.WoosmapGeofencing.clearSearchApiWatch(searchAPIWatchId, success, error);
+```
 
- 
+**Distance API**
+
+To listen to Distance API results call `watchDistanceApi` method. Method will invoke a callback with DistanceAPI object. Method will return a watch id which can be used later to remove the callback. 
+
+```
+var distanceAPIWatchId = cordova.plugins.WoosmapGeofencing.watchDistanceApi(success, error);
+```
+
+To stop listening
+
+```
+cordova.plugins.WoosmapGeofencing.clearDistanceApiWatch(distanceAPIWatchId, success, error);
+```
+
+**Visits**
+
+To listens to Visits callback call `watchVisits` method. Method will invoke a callback with Visit object. Method will return a watch id which can be used later to remove the callback.
+
+```
+var visitWatchId = cordova.plugins.WoosmapGeofencing.watchVisits(success, error);
+```
+
+To stop listening
+
+```
+cordova.plugins.WoosmapGeofencing.clearVisitsWatch(visitWatchId, success, error);
+```
+
+**Regions**
+
+Call `watchRegions` method to track Regions. Method will invoke a callback with Region object. Method will return a watch id which can be used later to remove the callback.
+
+```
+var regionWatchId = cordova.plugins.WoosmapGeofencing.watchRegions(success, error);
+```
+
+To remove watch
+
+```
+cordova.plugins.WoosmapGeofencing.clearRegionsWatch(regionWatchId, success, error);
+```
+
+**Airship**
+
+Call `watchAirship` method to listen to custom location generated events from Woosmap Geofencing SDK useful for Airship integration.
+
+```
+var airshipWatchId = cordova.plugins.WoosmapGeofencing.watchAirship(success, error);
+```
+
+To stop listening
+
+```
+cordova.plugins.WoosmapGeofencing.clearAirshipWatch(regionWatchId, success, error);
+```
+
+### Adding and removing regions
+---
+
+Call `addRegion` method to add region that you want to monitor. Method will accept an object following attributes.
+
+* **regionId** - Id of the region
+* **lat** - Latitude
+* **lng** - Longitude
+* **radius** - Radius in meters
+
+```
+const request = {
+        "lat": 51.50998000,
+        "lng": -0.13370000,
+        "regionId": "7F91369E-467C-4CBD-8D41-6509815C4780",
+        "radius": 10
+    };
+cordova.plugins.WoosmapGeofencing.addRegion(request, success, error);
+```
+
+Call `removeRegion` method to add region that you want to monitor. Method will accept following parameter. Passing null value will remove all the regions.
+
+* **regionId** - Id of the region
+* **lat** - Latitude
+* **lng** - Longitude
+* **radius** - Radius in meters
+
+```
+const request = {
+        "lat": 51.50998000,
+        "lng": -0.13370000,
+        "regionId": "7F91369E-467C-4CBD-8D41-6509815C4780",
+        "radius": 10
+    };
+cordova.plugins.WoosmapGeofencing.removeRegion(request,success, error);
+```
+
