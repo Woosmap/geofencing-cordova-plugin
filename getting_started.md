@@ -405,5 +405,7 @@ cordova.plugins.WoosmapGeofencing.customizeNotification(config,success,error);
 
 To customize other attributes of the notification please check [this](https://community.woosmap.com/geofencing-mobile-sdk/android/setup-firebase-cloud-messaging/#customize-notifications) section of Woosmap Geofencing SDK.
 
+--- 
 
+## [JSDoc Reference](https://wgs-cordova-jsdoc.s3.eu-west-3.amazonaws.com/index.html) 
 
