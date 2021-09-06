@@ -14,12 +14,12 @@ var utils = require("cordova/utils");
 /**
  * @method initialize
  * @description Initializes the Woosmap object
- * @param {Object} arg0 - A JSON object with Woosmap Key, Google Maps Api Key (optional) and tracking profile (`liveTracking`,`passiveTracking`,`visitsTracking`).
+ * @param {Object} arg0 - A JSON object with Woosmap Key (optional), Google Maps Api Key (optional) and tracking profile (`liveTracking`,`passiveTracking`,`visitsTracking`).
  * @param {function} success - A callback that will be called on success.
  * @param {function} error - A callback that will be called on error.
  */
 const initialize = function (arg0, success, error) {
-  if (arg0 == null){
+  if (arg0 == null) {
     arg0 = {};
   }
   exec(success, error, "WoosmapGeofencing", "initialize", [arg0]);
@@ -235,10 +235,8 @@ const customizeNotification = (notificationConfig) => {
  * @param {function} success A callback that will be called on successfully setting the API key.
  * @param {function} error A callback function that will be called on error.
  */
-const setWoosmapApiKey = (apiKey,success, error) => {
-  exec(success, error, "WoosmapGeofencing", "setWoosmapApiKey", [
-    apiKey,
-  ]);
+const setWoosmapApiKey = (apiKey, success, error) => {
+  exec(success, error, "WoosmapGeofencing", "setWoosmapApiKey", [apiKey]);
 };
 
 const WoosmapGeofencing = {
@@ -262,7 +260,7 @@ const WoosmapGeofencing = {
   watchAirship,
   clearAirshipWatch,
   customizeNotification,
-  setWoosmapApiKey
+  setWoosmapApiKey,
 };
 
 module.exports = WoosmapGeofencing;
