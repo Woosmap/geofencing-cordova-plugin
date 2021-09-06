@@ -55,7 +55,7 @@ Once you have done this, replace the www folder in your project with Example->ww
 cordova build
 ```
 
-**Adding testcase**
+**Adding test cases**
 ```
 cordova plugin add cordova-plugin-test-framework
 cordova plugin add ../WoosmapGeofencing/tests 
@@ -80,3 +80,132 @@ Change the start page in `config.xml` with `<content src="cdvtests/index.html" /
 * **Visit**: Represents a visit to a location/POI
 * **ZOI**: Represents Zone of Interest.
 * **Airship**: Contains custom data related to Airship implementation
+
+### Check and request permissions
+---
+Before initializing the SDK it is required that you request for required location permissions. 
+
+To check if the location permissions are granted by the user call `getPermissionsStatus` method. 
+
+```
+cordova.plugins.Woosmap.getPermissionsStatus(success, errorCallback);
+var success = function(status) {
+   console.log(status);
+};
+var errorCallback = function(error) {
+   alert('message: ' + error.message);
+};
+```
+
+Parameter status will be a string, one of:
+* `GRANTED_BACKGROUND` : User has granted location access even when app is not running in the foreground
+* `GRANTED_FOREGROUND` : Location access is granted only while user is using the app
+* `DENIED`: Location access is denied.
+
+**_Please note_**: Plugin will not work as expected if location access is denied. 
+
+**Requesting location access**
+To request location access call `requestPermissions` method of the plugin. This will result in displaying location access permission dialoag. This method accepts a boolean parameter `isBackground`. If this parameter is set to true then plugin will ask for background location access. Code snippet below asks for background location access.
+
+```
+cordova.plugins.Woosmap.requestPermissions(true, success, errorCallback);
+var success = function() {
+   console.log("success");
+};
+var errorCallback = function(error) {
+   alert('message: ' + error.message);
+};
+
+```
+
+### Initializing the plugin
+---
+
+Plugin can be initialized by simply calling `initialize` method. 
+
+```
+var woosmapSettings = {
+    privateKeyWoosmapAPI: "<<WOOSMAP_KEY>>",
+    trackingProfile: "liveTracking"
+};
+cordova.plugins.Woosmap.initialize(woosmapSettings, onSuccess, onError);
+var onSuccess = function() {
+    console.log("success");
+};
+var onError = function(error) {
+    alert('message: ' + error.message);
+};
+```
+
+Both configuration options `privateKeyWoosmapAPI` and `trackingProfile` are optional. You can also initialize the plugin by passing null configuration.
+
+```
+cordova.plugins.Woosmap.initialize(null, onSuccess, onError);
+```
+
+You also set the Woosmap API key later by calling `setWoosmapApiKey` method.
+
+```
+cordova.plugins.Woosmap.setWoosmapApiKey(<privateKeyWoosmapAPI>, onSuccess, onError);
+```
+
+### Tracking
+---
+
+Once you have initialized the plugin and the user has authorized location permissions, you can start tracking the user’s location.
+
+To start tracking, call:
+```
+cordova.plugins.WoosmapGeofencing.startTracking('liveTracking', onSuccess, onError);
+```
+
+To stop tracking, call:
+```
+cordova.plugins.WoosmapGeofencing.stopTracking(onSuccess, onError);
+```
+
+Method `startTracking` accepts only following tracking profiles
+
+* **liveTracking**
+* **passiveTracking**
+* **visitsTracking**
+
+### Tracking profile properties
+---
+
+| Property | liveTracking | passiveTracking | visitsTracking
+| ----------- | ----------- | ----------- | ----------- |
+| trackingEnable | true | true | true
+| foregroundLocationServiceEnable | true | false | false
+| modeHighFrequencyLocation | true | false | false
+| visitEnable | false | false | true
+| classificationEnable | false | false | true
+| minDurationVisitDisplay | null | null | 300
+| radiusDetectionClassifiedZOI | null | null | 50
+| distanceDetectionThresholdVisits | null | null | 25
+| currentLocationTimeFilter | 0 | 0 | 0
+| currentLocationDistanceFilter | 0 | 0 | 0
+| accuracyFilter | 100 | 100 | 100
+| searchAPIEnable | false | false | false
+| searchAPICreationRegionEnable | false | false | false
+| searchAPITimeFilter | 0 | 0 | 0
+| searchAPIDistanceFilter | 0 | 0 | 0
+| distanceAPIEnable | false | false | false
+| modeDistance | null | null | null
+| outOfTimeDelay | 300 | 300 | 300
+| DOUBLEOfDayDataDuration | 30 | 30 | 30
+
+### Listening to events
+---
+
+
+
+
+
+
+
+
+
+
+
+ 
