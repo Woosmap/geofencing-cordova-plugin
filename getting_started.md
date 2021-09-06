@@ -47,7 +47,7 @@ Once you create your Github personal access token create two environment variabl
 
 _**Download Firebase configuration file**_
 
-Once you add `android` platform you will need download and place firebase configuration file in the appropriate folder. Follow steps given [here] (https://support.google.com/firebase/answer/7015592?hl=en#zippy=%2Cin-this-article) to download your configuration file. Put the file in `platforms` -> `android` -> `app` folder.
+Once you add `android` platform you will need download and place firebase configuration file in the appropriate folder. Follow steps given [here](https://support.google.com/firebase/answer/7015592?hl=en#zippy=%2Cin-this-article) to download your configuration file. Put the file in `platforms` -> `android` -> `app` folder.
 
 Once you have done this, replace the www folder in your project with Example->www folder and build the project using following command
 
@@ -57,19 +57,26 @@ cordova build
 
 **Adding testcase**
 ```
-> cordova plugin add cordova-plugin-test-framework
-> cordova plugin add ../WoosmapGeofencing/tests 
+cordova plugin add cordova-plugin-test-framework
+cordova plugin add ../WoosmapGeofencing/tests 
 ```
-Change the start page in config.xml with <content src="cdvtests/index.html" /> or add a link to cdvtests/index.html from within your app.
+Change the start page in `config.xml` with `<content src="cdvtests/index.html" />` or add a link to `cdvtests/index.html` from within your app.
 
 ### Supported Platforms
 --- 
 * iOS
 * Android
 
-### Methods
+### Modules
 ---
+* **Woosmap**: Woosmap contains methods to monitor location, POIs, regions and visits.
+* **WoosmapDb**: contains methods to fetch POIs, regions and visits from the local device DB.
 
 ### Objects(Read Only)
 ---
-
+* **Location**: Represents the location object.
+* **POI**: Represents Point of Interest.
+* **Region**: Represents a geographical region/geofence
+* **Visit**: Represents a visit to a location/POI
+* **ZOI**: Represents Zone of Interest.
+* **Airship**: Contains custom data related to Airship implementation
