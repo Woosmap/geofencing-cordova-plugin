@@ -318,4 +318,92 @@ const request = {
     };
 cordova.plugins.WoosmapGeofencing.removeRegion(request,success, error);
 ```
+### Local database operations
+---
+
+* **Get POIs**: Call `getPois` method to get an array of POIs from the local db
+
+```
+const success = function (pois) {
+        console.log("POIs >>", pois);
+        showSuccessToast("Total POIs: " + pois.length);
+    };
+cordova.plugins.WoosmapDb.getPois(success, error);
+```
+
+* **Get Locations**: Call `getLocations` method to get an array of Locations from the local db.
+
+```
+const success = function (locations) {
+        console.log("Locations >>", locations);
+        showSuccessToast("Total Locations: " + locations.length);
+    };
+cordova.plugins.WoosmapDb.getLocations(success, error);
+```
+
+* **Get Visits**: Call `getVisits` method to get an array of Visits from the local db.
+
+```
+const success = function (result) {
+        showSuccessToast("Total Visits: " + result.length);
+    };
+cordova.plugins.WoosmapDb.getVisits(success, error);
+```
+
+* **Delete Visits** : Call `deleteVisit` method to remove all visits from the local DB.
+
+```
+cordova.plugins.WoosmapDb.deleteVisit(success, error);
+```
+
+* **Get Regions**: Call `getRegions` method to get an array of Regions from the local db.
+
+```
+const success = function (regions) {
+        showSuccessToast("Total Regions: " + regions.length);
+    };
+cordova.plugins.WoosmapDb.getRegions(success, error);
+```
+
+* **Get Zones of Interests**: Call `getZois` method to get an array of ZOIs from the local db.
+
+```
+const success = function (result) {
+        showSuccessToast("Total ZOIs: " + result.length);
+    };
+cordova.plugins.WoosmapDb.getZois(success, error);
+```
+
+* **Delete Zone of Interests**: Call `deleteZoi` method to remove all ZOIs from the local DB. 
+
+```
+cordova.plugins.WoosmapDb.deleteZoi(success,error);
+```
+
+### Customizing notification in Android
+---
+
+On Android platform when app goes in the background Woosmap Geofencing SDK shows an ongoing notification which notifies user that his/her location is being used while the app is running. As a developer you can modify the apearance of this notification. Following properties of the notification can be modified using `customizeNotification` method. 
+
+* Channel id
+* Channel name
+* Channel description
+* Notification title
+* Notification text
+
+```
+var config = {
+        WoosmapNotificationChannelID: "Channel_ID",
+        WoosmapNotificationChannelName: "Channel_Name",
+        WoosmapNotificationDescriptionChannel: "Channel_Description",
+        updateServiceNotificationTitle: "Notification_Title",
+        updateServiceNotificationText: "Notification_Text",
+        WoosmapNotificationActive: true
+    };
+cordova.plugins.WoosmapGeofencing.customizeNotification(config,success,error);
+```
+
+To customize other attributes of the notification please check [this](https://community.woosmap.com/geofencing-mobile-sdk/android/setup-firebase-cloud-messaging/#customize-notifications) section of Woosmap Geofencing SDK.
+
+
 
