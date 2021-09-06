@@ -367,6 +367,7 @@ import AirshipCore
     /// Delete all location from system
     public func  deleteLocations() {
         DataLocation().eraseLocations()
+        DataPOI().erasePOI()
     }
 
     /// Delete all ZOI regions
@@ -386,6 +387,9 @@ import AirshipCore
     }
 
     @objc static public func mockdata() {
+        if WoosmapGeofenceService.shared == nil {
+            WoosmapGeofenceService.setup()
+        }
         MockDataVisit().mockVisitData()
     }
 
