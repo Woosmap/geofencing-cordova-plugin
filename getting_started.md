@@ -1,10 +1,10 @@
 # Woosmap Geofencing SDK Cordova Plugin
-This Cordova plugin extends the functionality offered by Woosmap Geofencing Mobile SDKs. Find more about Woosmap Geofencing SDK [here.](https://deploy-preview-386--developers-woosmap.netlify.app/products/geofencing-sdk/get-started/)
+This Cordova plugin extends the functionality offered by the Woosmap Geofencing Mobile SDKs. Find more about the Woosmap Geofencing SDK [here.](https://deploy-preview-386--developers-woosmap.netlify.app/products/geofencing-sdk/get-started/)
 
 ### Getting started
 --- 
-**Prepration of Mac/Windows for Cordova**
-Before you begin make sure you have installed and setup Cordova on your machine. 
+**Preparation of Mac/Windows for Cordova**
+Before you begin, make sure you have installed and setup Cordova on your machine. 
 * [Installing Cordova on Mac](https://www.tomspencer.dev/blog/2017/05/29/a-guide-to-installing-cordova-on-your-mac/)
 * [Installing Cordova on Windows](https://www.tomspencer.dev/blog/2017/05/30/a-guide-to-installing-cordova-on-windows-10/)
 
@@ -14,9 +14,9 @@ cordova create <folder_name> <package_name> <project_name>
 cd <folder_name>
 ```
 
-**Add platform**
+**Adding the platform**
 
-If you are developing for iOS
+For iOS
 
 ```
 cordova platform add ios@6.0.0
@@ -29,27 +29,27 @@ cordova plugin add cordova-plugin-androidx
 cordova platform add android
 ```
 
-**Add Woosmap Geofencing Cordova plugin to your project**
+**Add the Woosmap Geofencing Cordova plugin to your project**
 
 ```
 cordova plugin add https://github.com/sanginfolbs/wgs_geofencing_cordova_release.git
 ```
 
 
-**Running plugin on Android platfrom**
+**Running the plugin on the Android platform**
 
-**_Before running the app on Android platform you need to perform following steps._**
+**_Before running the app on the Android platform, you need to perform the  following steps._**
 
 _**Configuring Github username and access token**_
 Since the plugin uses Woosmap Geofencing SDK deployed on Github packages, you will need to create a Github access token and configure it in your dev environment. Please go through this [link](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) to know about creating access tokens in Github. Make sure you have given `read-package` permission while creating the token.
 
-Once you create your Github personal access token create two environment variables. Variable `GITHUB_USER` will contain your Github user id and variable `GITHUB_PERSONAL_ACCESS_TOKEN` will contain your Github personal access token. Check this [link](https://saralgyaan.com/posts/set-passwords-and-secret-keys-in-environment-variables-maclinuxwindows-python-quicktip/) to know how to set up environment variables on Windows and Mac. 
+Once you create your Github personal access token, create two environment variables. Variable `GITHUB_USER` will contain your Github user id and variable `GITHUB_PERSONAL_ACCESS_TOKEN` will contain your Github personal access token. Check this [link](https://saralgyaan.com/posts/set-passwords-and-secret-keys-in-environment-variables-maclinuxwindows-python-quicktip/) to know how to set up environment variables on Windows and Mac. 
 
 _**Download Firebase configuration file**_
 
-Once you add `android` platform you will need download and place firebase configuration file in the appropriate folder. Follow steps given [here](https://support.google.com/firebase/answer/7015592?hl=en#zippy=%2Cin-this-article) to download your configuration file. Put the file in `platforms` -> `android` -> `app` folder.
+Once you add the `android` platform, you will need to download and place the firebase configuration file in the appropriate folder. Follow steps given [here](https://support.google.com/firebase/answer/7015592?hl=en#zippy=%2Cin-this-article) to download your configuration file. Put the file in `platforms` -> `android` -> `app` folder.
 
-Once you have done this, replace the www folder in your project with Example->www folder and build the project using following command
+Once you have done this, replace the www folder in your project with Example->www folder and build the project using following command:
 
 ```
 cordova build
@@ -74,11 +74,11 @@ Change the start page in `config.xml` with `<content src="cdvtests/index.html" /
 
 ### Objects(Read Only)
 ---
-* **Location**: Represents the location object.
-* **POI**: Represents Point of Interest.
+* **Location**: Represents the location object
+* **POI**: Represents Point of Interest
 * **Region**: Represents a geographical region/geofence
 * **Visit**: Represents a visit to a location/POI
-* **ZOI**: Represents Zone of Interest.
+* **ZOI**: Represents Zone of Interest
 * **Airship**: Contains custom data related to Airship implementation
 
 ### Check and request permissions
@@ -100,12 +100,12 @@ var errorCallback = function(error) {
 Parameter status will be a string, one of:
 * `GRANTED_BACKGROUND` : User has granted location access even when app is not running in the foreground
 * `GRANTED_FOREGROUND` : Location access is granted only while user is using the app
-* `DENIED`: Location access is denied.
+* `DENIED`: Location access is denied
 
 **_Please note_**: Plugin will not work as expected if location access is denied. 
 
 **Requesting location access**
-To request location access call `requestPermissions` method of the plugin. This will result in displaying location access permission dialoag. This method accepts a boolean parameter `isBackground`. If this parameter is set to true then plugin will ask for background location access. Code snippet below asks for background location access.
+To request location access call `requestPermissions` method of the plugin. This will result in displaying location access permission dialog. This method accepts a boolean parameter `isBackground`. If this parameter is set to true, then plugin will ask for background location access. Code snippet below asks for background location access.
 
 ```
 cordova.plugins.Woosmap.requestPermissions(true, success, errorCallback);
@@ -143,7 +143,7 @@ Both configuration options `privateKeyWoosmapAPI` and `trackingProfile` are opti
 cordova.plugins.Woosmap.initialize(null, onSuccess, onError);
 ```
 
-You also set the Woosmap API key later by calling `setWoosmapApiKey` method.
+You can also set the Woosmap API key later by calling `setWoosmapApiKey` method.
 
 ```
 cordova.plugins.Woosmap.setWoosmapApiKey(<privateKeyWoosmapAPI>, onSuccess, onError);
@@ -200,13 +200,13 @@ Method `startTracking` accepts only following tracking profiles
 
 **Location** 
 
-To listen to location call `watchLocation` method. Method will invoke callback and pass a location object as a parameter. Method will return a watchId . This id can be used to remove a callback.
+To listen to location, call `watchLocation` method. Method will invoke callback and pass a location object as a parameter. Method will return a watchId . This id can be used to remove a callback.
 
 ```
 var locationWatchId = cordova.plugins.WoosmapGeofencing.watchLocation(success, error);
 ```
 
-To stop getting location updates
+To stop getting location updates:
 
 ```
 cordova.plugins.WoosmapGeofencing.clearLocationWatch(locationWatchId, success, error);
@@ -214,13 +214,13 @@ cordova.plugins.WoosmapGeofencing.clearLocationWatch(locationWatchId, success, e
 
 **Search API** 
 
-To listen to Search API results Call `watchSearchApi` method. Method will invoke a callback with POI object. Method will return a watch id which can be used later to remove the callback.
+To listen to Search API results, call `watchSearchApi` method. Method will invoke a callback with POI object. Method will return a watch id which can be used later to remove the callback.
 
 ```
 var searchAPIWatchId = cordova.plugins.WoosmapGeofencing.watchSearchAPI(success, error);
 ```
 
-To stop getting Search API updates
+To stop getting Search API updates:
 
 ```
 cordova.plugins.WoosmapGeofencing.clearSearchApiWatch(searchAPIWatchId, success, error);
@@ -228,7 +228,7 @@ cordova.plugins.WoosmapGeofencing.clearSearchApiWatch(searchAPIWatchId, success,
 
 **Distance API**
 
-To listen to Distance API results call `watchDistanceApi` method. Method will invoke a callback with DistanceAPI object. Method will return a watch id which can be used later to remove the callback. 
+To listen to Distance API results, call `watchDistanceApi` method. Method will invoke a callback with DistanceAPI object. Method will return a watch id which can be used later to remove the callback. 
 
 ```
 var distanceAPIWatchId = cordova.plugins.WoosmapGeofencing.watchDistanceApi(success, error);
@@ -242,13 +242,13 @@ cordova.plugins.WoosmapGeofencing.clearDistanceApiWatch(distanceAPIWatchId, succ
 
 **Visits**
 
-To listens to Visits callback call `watchVisits` method. Method will invoke a callback with Visit object. Method will return a watch id which can be used later to remove the callback.
+To listen to Visits callback, call `watchVisits` method. Method will invoke a callback with Visit object. Method will return a watch id which can be used later to remove the callback.
 
 ```
 var visitWatchId = cordova.plugins.WoosmapGeofencing.watchVisits(success, error);
 ```
 
-To stop listening
+To stop listening:
 
 ```
 cordova.plugins.WoosmapGeofencing.clearVisitsWatch(visitWatchId, success, error);
@@ -262,7 +262,7 @@ Call `watchRegions` method to track Regions. Method will invoke a callback with 
 var regionWatchId = cordova.plugins.WoosmapGeofencing.watchRegions(success, error);
 ```
 
-To remove watch
+To remove watch:
 
 ```
 cordova.plugins.WoosmapGeofencing.clearRegionsWatch(regionWatchId, success, error);
@@ -276,7 +276,7 @@ Call `watchAirship` method to listen to custom location generated events from Wo
 var airshipWatchId = cordova.plugins.WoosmapGeofencing.watchAirship(success, error);
 ```
 
-To stop listening
+To stop listening:
 
 ```
 cordova.plugins.WoosmapGeofencing.clearAirshipWatch(regionWatchId, success, error);
@@ -285,7 +285,7 @@ cordova.plugins.WoosmapGeofencing.clearAirshipWatch(regionWatchId, success, erro
 ### Adding and removing regions
 ---
 
-Call `addRegion` method to add region that you want to monitor. Method will accept an object following attributes.
+Call `addRegion` method to add a region that you want to monitor. Method will accept an object with the following attributes:
 
 * **regionId** - Id of the region
 * **lat** - Latitude
@@ -302,7 +302,7 @@ const request = {
 cordova.plugins.WoosmapGeofencing.addRegion(request, success, error);
 ```
 
-Call `removeRegion` method to add region that you want to monitor. Method will accept following parameter. Passing null value will remove all the regions.
+Call `removeRegion` method to add a region that you want to monitor. Method will accept the following parameter, and passing a null value will remove all the regions.
 
 * **regionId** - Id of the region
 * **lat** - Latitude
@@ -383,7 +383,7 @@ cordova.plugins.WoosmapDb.deleteZoi(success,error);
 ### Customizing notification in Android
 ---
 
-On Android platform when app goes in the background Woosmap Geofencing SDK shows an ongoing notification which notifies user that his/her location is being used while the app is running. As a developer you can modify the apearance of this notification. Following properties of the notification can be modified using `customizeNotification` method. 
+On Android platform, when the app goes in the background, Woosmap Geofencing SDK shows an ongoing notification which notifies the user that the location is being used while the app is running. As a developer, you can modify the apearance of this notification. Following properties of the notification can be modified using `customizeNotification` method: 
 
 * Channel id
 * Channel name
@@ -403,7 +403,7 @@ var config = {
 cordova.plugins.WoosmapGeofencing.customizeNotification(config,success,error);
 ```
 
-To customize other attributes of the notification please check [this](https://community.woosmap.com/geofencing-mobile-sdk/android/setup-firebase-cloud-messaging/#customize-notifications) section of Woosmap Geofencing SDK.
+To customize other attributes of the notification, please check [this](https://community.woosmap.com/geofencing-mobile-sdk/android/setup-firebase-cloud-messaging/#customize-notifications) section of Woosmap Geofencing SDK.
 
 --- 
 
