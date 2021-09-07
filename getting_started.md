@@ -36,7 +36,9 @@ cordova plugin add https://github.com/sanginfolbs/wgs_geofencing_cordova_release
 ```
 
 
-**Running the plugin on the Android platform**
+## Running the plugin on the Android platform
+
+---
 
 **_Before running the app on the Android platform, you need to perform the  following steps._**
 
@@ -49,10 +51,13 @@ _**Download Firebase configuration file**_
 
 Once you add the `android` platform, you will need to download and place the firebase configuration file in the appropriate folder. Follow steps given [here](https://support.google.com/firebase/answer/7015592?hl=en#zippy=%2Cin-this-article) to download your configuration file. Put the file in `platforms` -> `android` -> `app` folder.
 
-Once you have done this, replace the www folder in your project with Example->www folder and build the project using following command:
+---
+
+Once you have done this build and run the project using following command:
 
 ```
 cordova build
+cordova run <android>/<ios>
 ```
 
 **Adding test cases**
