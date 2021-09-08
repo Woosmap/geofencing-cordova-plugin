@@ -367,7 +367,8 @@ import AirshipCore
     /// Delete all location from system
     public func  deleteLocations() {
         DataLocation().eraseLocations()
-        DataPOI().erasePOI()
+        //Native SDK Works independently
+        //DataPOI().erasePOI()
     }
 
     /// Delete all ZOI regions

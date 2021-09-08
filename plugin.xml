@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin id="cordova-plugin-woosmapgeofencing" version="0.0.3" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="cordova-plugin-woosmapgeofencing" version="0.0.4" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
   <name>WoosmapGeofencing</name>
   <js-module name="WoosmapGeofencing" src="www/WoosmapGeofencing.js">
     <clobbers target="cordova.plugins.WoosmapGeofencing" />
@@ -25,6 +25,9 @@
     <js-module name="Airship" src="www/Airship.js">
         <clobbers target="WoosmapGeofencing.Airship" />
     </js-module>
+    <js-module name="MarketingCloud" src="www/MarketingCloud.js">
+        <clobbers target="WoosmapGeofencing.MarketingCloud" />
+    </js-module>
   <platform name="ios">
     <config-file parent="/*" target="config.xml">
       <feature name="WoosmapGeofencing">
@@ -41,7 +44,8 @@
     <source-file src="src/ios/DataVisit.swift" />
     <source-file src="src/ios/DataZOI.swift" />
     <source-file src="src/ios/MockDataVisit.swift" />
-      <source-file src="src/ios/WoosmapGeofenceMessage.swift" />
+    <source-file src="src/ios/MarketingCloudEvents.swift" />
+    <source-file src="src/ios/WoosmapGeofenceMessage.swift" />
 
 
     <preference name="UseSwiftLanguageVersion" value="5" default="5" />
@@ -81,8 +85,6 @@
       <feature name="WoosmapGeofencing">
         <param name="android-package" value="cordova.plugin.woosmapgeofencing.WoosmapGeofencing" />
       </feature>
-	  <preference name="GradlePluginGoogleServicesEnabled" value="true" />
-	  <preference name="GradlePluginGoogleServicesVersion" value="4.2.0" />
     </config-file>
     <config-file parent="/*" target="AndroidManifest.xml">
 		<uses-permission android:name="android.permission.INTERNET" />
@@ -95,16 +97,6 @@
 		<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     </config-file>
 	<config-file parent="/manifest/application" target="AndroidManifest.xml">
-		<service android:name="com.webgeoservices.woosmapgeofencing.WoosmapInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name="com.webgeoservices.woosmapgeofencing.WoosmapMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 		<receiver android:name="cordova.plugin.woosmapgeofencing.RunOnStartup">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -125,5 +117,6 @@
 	<source-file src="src/android/WoosmapUtil.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
 	<source-file src="src/android/WoosAirshipReadyListener.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
 	<source-file src="src/android/TestUtil.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
+	<source-file src="src/android/WoosMarketingCloudListener.java" target-dir="src/cordova/plugin/woosmapgeofencing" />
   </platform>
 </plugin>

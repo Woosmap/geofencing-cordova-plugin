@@ -71,6 +71,8 @@ public class WoosmapGeofencing extends CordovaPlugin {
     private static final String METHOD_DELETE_LOCATIONS = "deleteLocations";
     private static final String METHOD_CUSTOMIZE_NOTIFICATION = "customizeNotification";
     private static final String METHOD_SET_WOOKMAP_API_KEY = "setWoosmapApiKey";
+    private static final String METHOD_WATCH_MARKETING_CLOUD = "watchMarketingCloud";
+    private static final String METHOD_CLEAR_MARKETING_CLOUD_WATCH = "clearMarketingCloudWatch";
 
 
     String [] foregroundLocationPermissions = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
@@ -88,6 +90,7 @@ public class WoosmapGeofencing extends CordovaPlugin {
     private final WoosRegionReadyListener woosRegionReadyListener = new WoosRegionReadyListener();
     private final WoosRegionLogReadyListener woosRegionLogReadyListener = new WoosRegionLogReadyListener();
     private final WoosAirshipReadyListener woosAirshipReadyListener = new WoosAirshipReadyListener();
+    private final WoosMarketingCloudListener woosMarketingCloudListener = new WoosMarketingCloudListener();
 
     private HashMap<String,Watchable> watchables;
 
@@ -101,6 +104,7 @@ public class WoosmapGeofencing extends CordovaPlugin {
         watchables.put(WoosVisitReadyListener.TYPE,woosVisitReadyListener);
         watchables.put(WoosRegionReadyListener.TYPE,woosRegionReadyListener);
         watchables.put(WoosAirshipReadyListener.TYPE,woosAirshipReadyListener);
+        watchables.put(WoosMarketingCloudListener.TYPE,woosMarketingCloudListener);
     }
 
     @Override
@@ -152,6 +156,12 @@ public class WoosmapGeofencing extends CordovaPlugin {
         }
         else if (action.equals(METHOD_CLEAR_AIRSHIP_WATCH)){
             clearWatch(WoosAirshipReadyListener.TYPE,args,callbackContext);
+        }
+        else if (action.equals(METHOD_WATCH_MARKETING_CLOUD)){
+            addWatch(WoosMarketingCloudListener.TYPE,args,callbackContext);
+        }
+        else if (action.equals(METHOD_CLEAR_MARKETING_CLOUD_WATCH)){
+            clearWatch(WoosMarketingCloudListener.TYPE,args,callbackContext);
         }
         else if (action.equals(METHOD_GET_POIS)){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -723,6 +733,7 @@ public class WoosmapGeofencing extends CordovaPlugin {
                 this.woosmap.setAirshipSearchAPIReadyListener(woosAirshipReadyListener);
                 this.woosmap.setAirshipVisitReadyListener(woosAirshipReadyListener);
                 this.woosmap.setAirhshipRegionLogReadyListener(woosAirshipReadyListener);
+
 
                 // For android version >= 8 you have to create a channel or use the woosmap's channel
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

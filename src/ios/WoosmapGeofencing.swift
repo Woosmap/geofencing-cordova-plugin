@@ -32,8 +32,8 @@ import WoosmapGeofencing
     /// List all airship callback collected by plugin
     private var  airshipWatchStack: [String: String] = [:]
 
-    /// List all markating callback collected by plugin. TODO: implementation still pending
-    private var  markatingWatchStack: [String: String] = [:]
+    /// List all marketing callback collected by plugin. TODO: implementation still pending
+    private var  marketingWatchStack: [String: String] = [:]
 
     /// Initialize cordova plugin
     override func pluginInitialize() {
@@ -49,7 +49,7 @@ import WoosmapGeofencing
         distanceWatchStack = [:]
         distanceAPICallStack = [:]
         airshipWatchStack = [:]
-        markatingWatchStack = [:]
+        marketingWatchStack = [:]
     }
 
     /// Initialize plugin with key
@@ -769,11 +769,64 @@ import WoosmapGeofencing
         if WoosmapGeofenceService.shared != nil {
             if let watchid = command.arguments[0] as? String {
                 if let _ = airshipWatchStack[watchid] {
-                    regionWatchStack.removeValue(forKey: watchid)
+                    airshipWatchStack.removeValue(forKey: watchid)
                 }
                 if airshipWatchStack.count == 0 {
                     // remove delegate watch
                     NotificationCenter.default.removeObserver(self, name: .airshipEvent, object: nil)
+                }
+                pluginResult = CDVPluginResult(
+                    status: CDVCommandStatus_OK,
+                    messageAs: watchid)
+            } else {
+                pluginResult = showWoomapError(WoosmapGeofenceMessage.watchIDEmptyOrNull)
+            }
+        } else {
+            pluginResult = showWoomapError(WoosmapGeofenceMessage.woosemapNotInitialized)
+        }
+
+        self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
+    }
+    
+    // MARK: Marketing
+    @objc(watchMarketingCloud:)
+    func watchMarketingCloud(command: CDVInvokedUrlCommand) {
+        var isWatchSuccesfull: Bool = false
+        var pluginResult: CDVPluginResult = CDVPluginResult()
+        if WoosmapGeofenceService.shared != nil {
+            if let watchid = command.arguments[0] as? String {
+                marketingWatchStack[watchid] = command.callbackId
+                if marketingWatchStack.count == 1 {
+                    NotificationCenter.default.addObserver(
+                        self,
+                        selector: #selector(marketingEvents(_:)),
+                        name: .marketingEvent,
+                        object: nil)
+                }
+                isWatchSuccesfull = true
+            } else {
+                pluginResult = showWoomapError(WoosmapGeofenceMessage.watchIDEmptyOrNull)
+            }
+        } else {
+            pluginResult = showWoomapError(WoosmapGeofenceMessage.woosemapNotInitialized)
+
+        }
+        if !isWatchSuccesfull {
+            self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
+        }
+    }
+
+    @objc(clearMarketingCloudWatch:)
+    func clearMarketingCloudWatch(command: CDVInvokedUrlCommand) {
+        var pluginResult: CDVPluginResult = CDVPluginResult()
+        if WoosmapGeofenceService.shared != nil {
+            if let watchid = command.arguments[0] as? String {
+                if let _ = marketingWatchStack[watchid] {
+                    marketingWatchStack.removeValue(forKey: watchid)
+                }
+                if marketingWatchStack.count == 0 {
+                    // remove delegate watch
+                    NotificationCenter.default.removeObserver(self, name: .marketingEvent, object: nil)
                 }
                 pluginResult = CDVPluginResult(
                     status: CDVCommandStatus_OK,
@@ -1052,7 +1105,29 @@ import WoosmapGeofencing
         result["duration"] = woosdata.duration.text
         return result
     }
+    
     private func formatAirshipData(woosdata: AirshipData) -> [AnyHashable: Any] {
+        var result: [AnyHashable: Any] = [:]
+        result["name"] = woosdata.eventname
+        var propertiesFormat: [AnyHashable: Any] = [:]
+        woosdata.properties.keys.forEach { airshipkey in
+            if let value = woosdata.properties[airshipkey] as? Date {
+                propertiesFormat[airshipkey] = value.timeIntervalSince1970 * 1000
+            } else if let value = woosdata.properties[airshipkey] as? Double {
+                propertiesFormat[airshipkey] = value
+            } else if let value = woosdata.properties[airshipkey] as? Int {
+                propertiesFormat[airshipkey] = value
+            } else if let value = woosdata.properties[airshipkey] as? Bool {
+                propertiesFormat[airshipkey] = value
+            } else if let value = woosdata.properties[airshipkey] as? String {
+                propertiesFormat[airshipkey] = value
+            }
+        }
+        result["properties"] = propertiesFormat
+        return result
+    }
+    
+    private func formatMarketingData(woosdata: MarketingData) -> [AnyHashable: Any] {
         var result: [AnyHashable: Any] = [:]
         result["name"] = woosdata.eventname
         var propertiesFormat: [AnyHashable: Any] = [:]
@@ -1194,6 +1269,21 @@ import WoosmapGeofencing
 
             for watchid in airshipWatchStack.keys {
                 let callbackID = airshipWatchStack[watchid]
+                pluginResult.setKeepCallbackAs(true)
+                self.commandDelegate.send(pluginResult, callbackId: callbackID)
+            }
+        }
+    }
+    
+    @objc func marketingEvents(_ notification: Notification) {
+        if let marketingdata = notification.userInfo?["Marketing"] as? MarketingData {
+            let pluginResult: CDVPluginResult  = CDVPluginResult(
+                status: CDVCommandStatus_OK,
+                messageAs: formatMarketingData(woosdata: marketingdata)
+            )
+
+            for watchid in marketingWatchStack.keys {
+                let callbackID = marketingWatchStack[watchid]
                 pluginResult.setKeepCallbackAs(true)
                 self.commandDelegate.send(pluginResult, callbackId: callbackID)
             }

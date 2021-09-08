@@ -232,11 +232,32 @@ const customizeNotification = (notificationConfig) => {
 /**
  * @method setWoosmapApiKey
  * @description A method that sets Woosmap private API key
+ * @param {string} apiKey new API key.
  * @param {function} success A callback that will be called on successfully setting the API key.
  * @param {function} error A callback function that will be called on error.
  */
 const setWoosmapApiKey = (apiKey, success, error) => {
   exec(success, error, "WoosmapGeofencing", "setWoosmapApiKey", [apiKey]);
+};
+/**
+ * @method watchMarketingCloud
+ * @description A method that watches for custom location generated events from Woosmap Geofencing SDK useful for Marketing Cloud event integration for sending contextual notifications to the app.
+ * @param {function} success A callback that will be called on success with the name of the event and attributes of POI as parameter.
+ * @param {function} error A callback function that will be called on error.
+ * @returns string
+ */
+const watchMarketingCloud = (success, error) => {
+  var watchId = utils.createUUID();
+  exec(success, error, "WoosmapGeofencing", "watchMarketingCloud", [watchId]);
+  return watchId;
+};
+/**
+ * @method clearMarketingCloudWatch
+ * @description A method to clear the specified MarketingCloud watch.
+ * @param {string} watchId An alphanumeric unique identifier.
+ */
+const clearMarketingCloudWatch = (watchId) => {
+  exec(null, null, "WoosmapGeofencing", "clearMarketingCloudWatch", [watchId]);
 };
 
 const WoosmapGeofencing = {
@@ -261,6 +282,8 @@ const WoosmapGeofencing = {
   clearAirshipWatch,
   customizeNotification,
   setWoosmapApiKey,
+  watchMarketingCloud,
+  clearMarketingCloudWatch
 };
 
 module.exports = WoosmapGeofencing;

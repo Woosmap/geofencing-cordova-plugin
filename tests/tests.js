@@ -7,6 +7,7 @@ exports.defineAutoTests = function () {
         var visitWatchId = '';
         var regionWatchId = '';
         var airshipWatchId = '';
+        var marketingCloudWatchId = '';
         var customNotificationCounter = 0;
 
         window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
@@ -431,6 +432,28 @@ exports.defineAutoTests = function () {
                 WoosmapNotificationActive: true
             };
             cordova.plugins.WoosmapGeofencing.customizeNotification(config);
+            expect(true).toEqual(true);
+            done();
+        });
+
+        it('51. watchMarketingCloud should be a function ', function(){
+            expect(typeof cordova.plugins.WoosmapGeofencing.watchMarketingCloud).toEqual('function')
+        });
+
+        it('52. watchMarketingCloud should return a watch Id', function(done){
+            var win = function (marketingCloudData) {};
+            var fail = function (e) {};
+            marketingCloudWatchId = cordova.plugins.WoosmapGeofencing.watchMarketingCloud(win, fail);
+            expect(marketingCloudWatchId).toBeDefined();
+            done();
+        });
+
+        it('53. clearMarketingCloudWatch should be a function ', function(){
+            expect(typeof cordova.plugins.WoosmapGeofencing.clearMarketingCloudWatch).toEqual('function')
+        });
+
+        it('54. clearMarketingCloudWatch should clear marketing cloud events watch', function(done){
+            cordova.plugins.WoosmapGeofencing.clearMarketingCloudWatch(marketingCloudWatchId);
             expect(true).toEqual(true);
             done();
         });
