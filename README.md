@@ -41,16 +41,12 @@ cordova plugin add https://github.com/sanginfolbs/wgs_geofencing_cordova_release
 
 ---
 
-**_Before running the app on the Android platform, you need to perform the  following steps._**
+**_Before running the app on the Android platform, you need to perform the following step._**
 
 _**Configuring Github username and access token**_
 Since the plugin uses Woosmap Geofencing SDK deployed on Github packages, you will need to create a Github access token and configure it in your dev environment. Please go through this [link](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) to know about creating access tokens in Github. Make sure you have given `read-package` permission while creating the token.
 
 Once you create your Github personal access token, create two environment variables. Variable `GITHUB_USER` will contain your Github user id and variable `GITHUB_PERSONAL_ACCESS_TOKEN` will contain your Github personal access token. Check this [link](https://saralgyaan.com/posts/set-passwords-and-secret-keys-in-environment-variables-maclinuxwindows-python-quicktip/) to know how to set up environment variables on Windows and Mac. 
-
-_**Download Firebase configuration file**_
-
-Once you add the `android` platform, you will need to download and place the firebase configuration file in the appropriate folder. Follow steps given [here](https://support.google.com/firebase/answer/7015592?hl=en#zippy=%2Cin-this-article) to download your configuration file. Put the file in `platforms` -> `android` -> `app` folder.
 
 ---
 
@@ -86,6 +82,7 @@ Change the start page in `config.xml` with `<content src="cdvtests/index.html" /
 * **Visit**: Represents a visit to a location/POI
 * **ZOI**: Represents Zone of Interest
 * **Airship**: Contains custom data related to Airship implementation
+* **MarketingCloud**: Contains custom data related to third party marketing cloud implementation
 
 ### Check and request permissions
 ---
@@ -209,7 +206,16 @@ Method `startTracking` accepts only following tracking profiles
 To listen to location, call `watchLocation` method. Method will invoke callback and pass a location object as a parameter. Method will return a watchId . This id can be used to remove a callback.
 
 ```
-var locationWatchId = cordova.plugins.WoosmapGeofencing.watchLocation(success, error);
+const locationCallback = function (location) {
+	const wgsLocation = window.WoosmapGeofencing.Location.jsonToObj(location);
+	console.log("Location:" + wgsLocation.Latitude + "," + wgsLocation.Longitude);
+};
+
+const error = function (err) {
+	console.log(err);
+};
+
+var locationWatchId = cordova.plugins.WoosmapGeofencing.watchLocation(locationCallback, error);
 ```
 
 To stop getting location updates:
@@ -223,7 +229,15 @@ cordova.plugins.WoosmapGeofencing.clearLocationWatch(locationWatchId, success, e
 To listen to Search API results, call `watchSearchApi` method. Method will invoke a callback with POI object. Method will return a watch id which can be used later to remove the callback.
 
 ```
-var searchAPIWatchId = cordova.plugins.WoosmapGeofencing.watchSearchAPI(success, error);
+const searchApiCallback = function (poi) {
+	console.log("POI:" + poi);
+};
+
+const error = function (err) {
+	console.log(err);
+};
+
+var searchAPIWatchId = cordova.plugins.WoosmapGeofencing.watchSearchAPI(searchApiCallback, error);
 ```
 
 To stop getting Search API updates:
@@ -237,7 +251,15 @@ cordova.plugins.WoosmapGeofencing.clearSearchApiWatch(searchAPIWatchId, success,
 To listen to Distance API results, call `watchDistanceApi` method. Method will invoke a callback with DistanceAPI object. Method will return a watch id which can be used later to remove the callback. 
 
 ```
-var distanceAPIWatchId = cordova.plugins.WoosmapGeofencing.watchDistanceApi(success, error);
+const distanceApiCallback = function (distanceAPI) {
+	console.log("Distance API:" + distanceAPI);
+};
+
+const error = function (err) {
+	console.log(err);
+};
+
+var distanceAPIWatchId = cordova.plugins.WoosmapGeofencing.watchDistanceApi(distanceApiCallback, error);
 ```
 
 To stop listening
@@ -251,7 +273,15 @@ cordova.plugins.WoosmapGeofencing.clearDistanceApiWatch(distanceAPIWatchId, succ
 To listen to Visits callback, call `watchVisits` method. Method will invoke a callback with Visit object. Method will return a watch id which can be used later to remove the callback.
 
 ```
-var visitWatchId = cordova.plugins.WoosmapGeofencing.watchVisits(success, error);
+const visitCallback = function (visit) {
+	console.log("Visit:" + visit);
+};
+
+const error = function (err) {
+	console.log(err);
+};
+
+var visitWatchId = cordova.plugins.WoosmapGeofencing.watchVisits(visitCallback, error);
 ```
 
 To stop listening:
@@ -265,7 +295,15 @@ cordova.plugins.WoosmapGeofencing.clearVisitsWatch(visitWatchId, success, error)
 Call `watchRegions` method to track Regions. Method will invoke a callback with Region object. Method will return a watch id which can be used later to remove the callback.
 
 ```
-var regionWatchId = cordova.plugins.WoosmapGeofencing.watchRegions(success, error);
+const regionCallback = function (region) {
+	console.log("Region:" + region);
+};
+
+const error = function (err) {
+	console.log(err);
+};
+
+var regionWatchId = cordova.plugins.WoosmapGeofencing.watchRegions(regionCallback, error);
 ```
 
 To remove watch:
@@ -279,7 +317,15 @@ cordova.plugins.WoosmapGeofencing.clearRegionsWatch(regionWatchId, success, erro
 Call `watchAirship` method to listen to custom location generated events from Woosmap Geofencing SDK useful for Airship integration.
 
 ```
-var airshipWatchId = cordova.plugins.WoosmapGeofencing.watchAirship(success, error);
+const airshipCallback = function (airshipData) {
+	console.log("Airship Data:" + airshipData);
+};
+
+const error = function (err) {
+	console.log(err);
+};
+
+var airshipWatchId = cordova.plugins.WoosmapGeofencing.watchAirship(airshipCallback, error);
 ```
 
 To stop listening:
@@ -287,6 +333,29 @@ To stop listening:
 ```
 cordova.plugins.WoosmapGeofencing.clearAirshipWatch(regionWatchId, success, error);
 ```
+
+**Marcketing Cloud**
+
+Call `watchMarketingCloud` method to listen to custom location generated events from Woosmap Geofencing SDK useful for third party marketing cloud implementation.
+
+```
+const marketingCloudCallback = function (customData) {
+	console.log("MarketingCloud Data:" + customData);
+};
+
+const error = function (err) {
+	console.log(err);
+};
+
+var marketingCloudWatchId = cordova.plugins.WoosmapGeofencing.watchMarketingCloud(marketingCloudCallback, error);
+```
+
+To stop listening:
+
+```
+cordova.plugins.WoosmapGeofencing.clearMarketingCloudWatch(marketingCloudWatchId, success, error);
+```
+
 
 ### Adding and removing regions
 ---
