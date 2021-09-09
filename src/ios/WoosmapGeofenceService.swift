@@ -37,6 +37,7 @@ import AirshipCore
     private let dataRegion = DataRegion()
     private let dataVisit = DataVisit()
     private let airshipEvents = AirshipEvents()
+    private let marketingCloudEvents = MarketingCloudEvents()
 
     /// Status of search api On/Off
     @objc public var searchAPIRequestEnable: Bool {
@@ -236,6 +237,9 @@ import AirshipCore
 
         // Enable Visit and set delegate of protocol Visit
         WoosmapGeofencing.shared.getLocationService().visitDelegate = dataVisit
+        
+        //Set delagate for Marketing Cloud
+        WoosmapGeofencing.shared.getLocationService().marketingCloudEventsDelegate = marketingCloudEvents
 
         if let savedProfile = ConfigurationProfile(rawValue: defaultProfile) {
             WoosmapGeofencing.shared.startTracking(configurationProfile: savedProfile)
