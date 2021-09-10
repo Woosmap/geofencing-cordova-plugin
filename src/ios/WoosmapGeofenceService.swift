@@ -238,6 +238,9 @@ import AirshipCore
         // Enable Visit and set delegate of protocol Visit
         WoosmapGeofencing.shared.getLocationService().visitDelegate = dataVisit
         
+        //Set delagate for Airship Cloud
+        WoosmapGeofencing.shared.getLocationService().airshipEventsDelegate = airshipEvents
+        
         //Set delagate for Marketing Cloud
         WoosmapGeofencing.shared.getLocationService().marketingCloudEventsDelegate = marketingCloudEvents
 
