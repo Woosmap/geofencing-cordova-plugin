@@ -1,7 +1,7 @@
 {
-  "name": "cordova-plugin-woosmapgeofencing",
+  "name": "@woosmap/cordova-plugin-geofencing",
   "version": "0.0.4",
-  "description": "WGS cordova app",
+  "description": "Woosmap Geofencing Cordova Plugin",
   "cordova": {
     "id": "cordova-plugin-woosmapgeofencing",
     "platforms": [
@@ -11,17 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sanginfolbs/wgs_geofencing_cordova_release.git"
+    "url": "git+https://github.com/woosmap/woosmap-geofencing-cordova-plugin.git"
   },
   "keywords": [
     "ecosystem:cordova",
     "cordova-ios",
     "cordova-android"
   ],
-  "author": "Webgeoservices",
+  "author": "WebGeoServices",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sanginfolbs/wgs_geofencing_cordova_release/issues"
+    "url": "https://github.com/woosmap/woosmap-geofencing-cordova-plugin/issues"
   },
-  "homepage": "https://github.com/sanginfolbs/wgs_geofencing_cordova_release#readme"
+  "homepage": "https://github.com/woosmap/woosmap-geofencing-cordova-plugin#readme"
 }
