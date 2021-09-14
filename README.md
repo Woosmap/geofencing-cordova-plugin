@@ -33,7 +33,7 @@ cordova platform add android
 **Add the Woosmap Geofencing Cordova plugin to your project**
 
 ```
-cordova plugin add https://github.com/sanginfolbs/wgs_geofencing_cordova_release.git
+cordova plugin add https://github.com/woosmap/woosmap-geofencing-cordova-plugin.git
 ```
 
 
