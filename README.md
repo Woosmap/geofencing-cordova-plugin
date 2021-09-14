@@ -60,7 +60,7 @@ cordova run <android>/<ios>
 **Adding test cases**
 ```
 cordova plugin add cordova-plugin-test-framework
-cordova plugin add ../WoosmapGeofencing/tests 
+cordova plugin add plugins/cordova-plugin-woosmapgeofencing/tests
 ```
 Change the start page in `config.xml` with `<content src="cdvtests/index.html" />` or add a link to `cdvtests/index.html` from within your app.
 
