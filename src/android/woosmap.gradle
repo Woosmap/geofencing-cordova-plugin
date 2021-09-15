@@ -1,19 +1,12 @@
 repositories{    
   jcenter()
    maven {
-        name = "woosmap-geofencing-android-sdk"
-        url = uri("https://maven.pkg.github.com/woosmap/woosmap-geofencing-android-sdk")
-		credentials {
-            username = System.getenv('GITHUB_USER') ?: project.properties['GITHUB_USER']
-            password = System.getenv('GITHUB_PERSONAL_ACCESS_TOKEN') ?: project.properties['GITHUB_PERSONAL_ACCESS_TOKEN']
-            
-		}
+        url = 'https://jitpack.io'
    }
 }
 
 dependencies {
-	//implementation(name:'woosmapgeofencing-release_1.0.9', ext:'aar')
-	implementation 'com.webgeoservices:woosmapgeofencing:1.2.0'
+	implementation 'com.github.woosmap:woosmap-geofencing-android-sdk:1.1.0'
 	implementation 'androidx.appcompat:appcompat:1.1.0'
 	implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 	implementation 'com.google.firebase:firebase-core:17.2.2'
