@@ -33,7 +33,7 @@ cordova platform add android
 **Add the Woosmap Geofencing Cordova plugin to your project**
 
 ```
-cordova plugin add https://github.com/woosmap/woosmap-geofencing-cordova-plugin.git
+cordova plugin add @woosmap/cordova-plugin-geofencing --link
 ```
 
 
@@ -56,13 +56,6 @@ Once you have done this build and run the project using following command:
 cordova build
 cordova run <android>/<ios>
 ```
-
-**Adding test cases**
-```
-cordova plugin add cordova-plugin-test-framework
-cordova plugin add plugins/cordova-plugin-woosmapgeofencing/tests
-```
-Change the start page in `config.xml` with `<content src="cdvtests/index.html" />` or add a link to `cdvtests/index.html` from within your app.
 
 ### Supported Platforms
 --- 
