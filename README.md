@@ -182,8 +182,8 @@ Method `startTracking` accepts only following tracking profiles
 | currentLocationTimeFilter | 0 | 0 | 0
 | currentLocationDistanceFilter | 0 | 0 | 0
 | accuracyFilter | 100 | 100 | 100
-| searchAPIEnable | false | false | false
-| searchAPICreationRegionEnable | false | false | false
+| searchAPIEnable | false | true | false
+| searchAPICreationRegionEnable | false | true | false
 | searchAPITimeFilter | 0 | 0 | 0
 | searchAPIDistanceFilter | 0 | 0 | 0
 | distanceAPIEnable | false | false | false
