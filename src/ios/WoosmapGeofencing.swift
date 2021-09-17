@@ -1117,10 +1117,14 @@ import WoosmapGeofencing
                 propertiesFormat[airshipkey] = value
             } else if let value = woosdata.properties[airshipkey] as? Int {
                 propertiesFormat[airshipkey] = value
+            } else if let value = woosdata.properties[airshipkey] as? Int32 {
+                propertiesFormat[airshipkey] = value
             } else if let value = woosdata.properties[airshipkey] as? Bool {
                 propertiesFormat[airshipkey] = value
             } else if let value = woosdata.properties[airshipkey] as? String {
                 propertiesFormat[airshipkey] = value
+            } else {
+                propertiesFormat[airshipkey] = woosdata.properties[airshipkey]
             }
         }
         result["properties"] = propertiesFormat
@@ -1131,17 +1135,21 @@ import WoosmapGeofencing
         var result: [AnyHashable: Any] = [:]
         result["name"] = woosdata.eventname
         var propertiesFormat: [AnyHashable: Any] = [:]
-        woosdata.properties.keys.forEach { airshipkey in
-            if let value = woosdata.properties[airshipkey] as? Date {
-                propertiesFormat[airshipkey] = value.timeIntervalSince1970 * 1000
-            } else if let value = woosdata.properties[airshipkey] as? Double {
-                propertiesFormat[airshipkey] = value
-            } else if let value = woosdata.properties[airshipkey] as? Int {
-                propertiesFormat[airshipkey] = value
-            } else if let value = woosdata.properties[airshipkey] as? Bool {
-                propertiesFormat[airshipkey] = value
-            } else if let value = woosdata.properties[airshipkey] as? String {
-                propertiesFormat[airshipkey] = value
+        woosdata.properties.keys.forEach { marketingkey in
+            if let value = woosdata.properties[marketingkey] as? Date {
+                propertiesFormat[marketingkey] = value.timeIntervalSince1970 * 1000
+            } else if let value = woosdata.properties[marketingkey] as? Double {
+                propertiesFormat[marketingkey] = value
+            } else if let value = woosdata.properties[marketingkey] as? Int {
+                propertiesFormat[marketingkey] = value
+            } else if let value = woosdata.properties[marketingkey] as? Int32 {
+                propertiesFormat[marketingkey] = value
+            } else if let value = woosdata.properties[marketingkey] as? Bool {
+                propertiesFormat[marketingkey] = value
+            } else if let value = woosdata.properties[marketingkey] as? String {
+                propertiesFormat[marketingkey] = value
+            } else {
+                propertiesFormat[marketingkey] = woosdata.properties[marketingkey]
             }
         }
         result["properties"] = propertiesFormat
