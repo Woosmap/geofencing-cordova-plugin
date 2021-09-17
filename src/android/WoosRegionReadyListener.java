@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.webgeoservices.woosmapgeofencing.Woosmap;
 import com.webgeoservices.woosmapgeofencing.database.Region;
+import com.webgeoservices.woosmapgeofencing.database.RegionLog;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 /***
  * Implements Woosmap Region callbacks
  */
-public class WoosRegionReadyListener extends Watchable implements Woosmap.RegionReadyListener {
+public class WoosRegionReadyListener extends Watchable implements Woosmap.RegionReadyListener, Woosmap.RegionLogReadyListener {
     private static final String TAG = "WoosRegionReadyListener";
     public static final String TYPE = "WoosRegionReadyListener";
 
@@ -24,7 +25,16 @@ public class WoosRegionReadyListener extends Watchable implements Woosmap.Region
     public void RegionReadyCallback(Region region) {
         Log.d(TAG,region.toString());
         if (hasTrackingStarted){
-            sendResult(region);
+            JSONObject jsonObject = WoosmapUtil.getRegionObject(region);
+            sendResult(jsonObject);
+        }
+    }
+
+    @Override
+    public void RegionLogReadyCallback(RegionLog regionLog) {
+        if (hasTrackingStarted){
+            JSONObject jsonObject = WoosmapUtil.getRegionObject(regionLog);
+            sendResult(jsonObject);
         }
     }
 
@@ -38,15 +48,13 @@ public class WoosRegionReadyListener extends Watchable implements Woosmap.Region
         watches.remove(watchId);
     }
 
-    private void sendResult(Region region){
+    private void sendResult(JSONObject region){
         PluginResult pluginResult;
-        JSONObject jsonObject = WoosmapUtil.getRegionObject(region);
         for(CallbackContext callbackContext: watches.values()){
-            pluginResult = new PluginResult(PluginResult.Status.OK,jsonObject);
+            pluginResult = new PluginResult(PluginResult.Status.OK,region);
             pluginResult.setKeepCallback(true);
             callbackContext.sendPluginResult(pluginResult);
         }
     }
-
 
 }

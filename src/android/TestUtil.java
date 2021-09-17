@@ -34,9 +34,10 @@ public class TestUtil {
     public static void createTestZOIs(final Context context){
         CompletableFuture.supplyAsync((Supplier<Void>) () -> {
             try{
+
                 InputStream in = context.getResources().openRawResource(context.getResources().getIdentifier(
                         "visit_qualif","raw",context.getPackageName()));
-						
+
                 DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss+SS");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                 String line = null;

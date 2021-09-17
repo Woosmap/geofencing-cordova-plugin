@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.webgeoservices.woosmapgeofencing.database.MovingPosition;
 import com.webgeoservices.woosmapgeofencing.database.POI;
 import com.webgeoservices.woosmapgeofencing.database.Region;
+import com.webgeoservices.woosmapgeofencing.database.RegionLog;
 import com.webgeoservices.woosmapgeofencing.database.Visit;
 import com.webgeoservices.woosmapgeofencing.database.ZOI;
 
@@ -54,6 +55,25 @@ public class WoosmapUtil {
         }
         return null;
     }
+
+    public static JSONObject getRegionObject(RegionLog regionLog){
+        try{
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("longitude", regionLog.lng);
+            jsonObject.put("latitude", regionLog.lat);
+            jsonObject.put("date", regionLog.dateTime);
+            jsonObject.put("didenter", regionLog.didEnter);
+            jsonObject.put("identifier", regionLog.identifier);
+            jsonObject.put("radius", regionLog.radius);
+            jsonObject.put("frompositiondetection", regionLog.isCurrentPositionInside);
+            return jsonObject;
+        }
+        catch (Exception ex){
+            Log.e(TAG,ex.toString());
+        }
+        return null;
+    }
+
     public static JSONObject getRegionObject(Region region){
         try{
             JSONObject jsonObject = new JSONObject();
