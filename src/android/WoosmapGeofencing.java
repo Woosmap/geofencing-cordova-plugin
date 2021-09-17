@@ -727,13 +727,17 @@ public class WoosmapGeofencing extends CordovaPlugin {
                 this.woosmap.setDistanceAPIReadyListener(woosDistanceAPIReadyListener);
                 this.woosmap.setVisitReadyListener(woosVisitReadyListener);
                 this.woosmap.setRegionReadyListener(woosRegionReadyListener);
-                this.woosmap.setRegionLogReadyListener(woosRegionLogReadyListener);
+                this.woosmap.setRegionLogReadyListener(woosRegionReadyListener);
 
                 // Airship Listener
                 this.woosmap.setAirshipSearchAPIReadyListener(woosAirshipReadyListener);
                 this.woosmap.setAirshipVisitReadyListener(woosAirshipReadyListener);
                 this.woosmap.setAirhshipRegionLogReadyListener(woosAirshipReadyListener);
 
+                // Marketing cloud
+                this.woosmap.setMarketingCloudRegionLogReadyListener(woosMarketingCloudListener);
+                this.woosmap.setMarketingCloudSearchAPIReadyListener(woosMarketingCloudListener);
+                this.woosmap.setMarketingCloudVisitReadyListener(woosMarketingCloudListener);
 
                 // For android version >= 8 you have to create a channel or use the woosmap's channel
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
