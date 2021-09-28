@@ -4,7 +4,7 @@ repositories{
 }
 
 dependencies {
-	implementation 'com.github.woosmap:woosmap-geofencing-android-sdk:1.1.1'
+	implementation 'com.github.woosmap:woosmap-geofencing-android-sdk:1.1.2'
 	implementation 'androidx.appcompat:appcompat:1.1.0'
 	implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 	implementation 'com.google.firebase:firebase-core:17.2.2'
