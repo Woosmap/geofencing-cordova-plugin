@@ -2,9 +2,9 @@ import Foundation
 import CoreLocation
 import WoosmapGeofencing
 
-class MarketingData {
-    var eventname: String = ""
-    var properties: [String: Any]
+@objc(MarketingData) class MarketingData: NSObject {
+    @objc var eventname: String = ""
+    @objc var properties: [String: Any]
 
     required init(eventname: String, properties: [String: Any]) {
         self.eventname = eventname

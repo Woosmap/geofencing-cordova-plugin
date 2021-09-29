@@ -163,13 +163,25 @@ import AirshipCore
     ///   - woosmapKey: key use for woosmap service
     ///   - googleAPIKey: key use for googlemap service
     ///   - configurationProfile: configuration profile
-    @objc public static func setup(woosmapKey: String, googleAPIKey: String, configurationProfile: String) {
+    @objc internal static func setup(woosmapKey: String, googleAPIKey: String, configurationProfile: String) {
         shared = WoosmapGeofenceService.init( woosmapKey, googleAPIKey, configurationProfile)
+    }
+    
+    /// Static instance of woosGeofencing service
+    /// - Parameters:
+    ///   - woosmapKey: key use for woosmap service
+    ///   - configurationProfile: configuration profile
+    @objc public static func setup(woosmapKey: String, configurationProfile: String) {
+        shared = WoosmapGeofenceService.init( woosmapKey, "", configurationProfile)
     }
 
     /// Creating instance for woosGeofencing service
     @objc public static func setup() {
-        shared = WoosmapGeofenceService.init( "", "", "")
+        let defaults = UserDefaults.standard
+        if let savedwoosmapkey = defaults.string(forKey: "WoosmapGeofenceService.woosmap"){
+            let savedprofile = defaults.string(forKey: "WoosmapGeofenceService.profile") ?? ""
+            shared = WoosmapGeofenceService.init( savedwoosmapkey, "", savedprofile)
+        }
     }
 
     /// Setting up woosmap key
@@ -415,7 +427,7 @@ struct WoosGeofenceError: Error {
         self.message = message
     }
 
-    /// Localized Description
+    /// Localized Description.
     public var localizedDescription: String {
         return message
     }
