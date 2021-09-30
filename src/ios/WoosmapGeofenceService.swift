@@ -123,11 +123,11 @@ import AirshipCore
         self.defaultProfile = defaultProfile
         googleStaticMapKey = googleAPIKey
 
-        defaults.register(defaults: ["TrackingEnable": true,
-                                     "ModeHighfrequencyLocation": false,
-                                     "SearchAPIEnable": true,
-                                     "DistanceAPIEnable": true,
-                                     "searchAPICreationRegionEnable": true])
+//        defaults.register(defaults: ["TrackingEnable": true,
+//                                     "ModeHighfrequencyLocation": false,
+//                                     "SearchAPIEnable": true,
+//                                     "DistanceAPIEnable": true,
+//                                     "searchAPICreationRegionEnable": true])
 
         self.activateGeofenceService()
 
@@ -150,11 +150,11 @@ import AirshipCore
         defaults.set(googleAPIKey, forKey: "WoosmapGeofenceService.googleapi")
         defaults.set(configurationProfile, forKey: "WoosmapGeofenceService.profile")
 
-        defaults.register(defaults: ["TrackingEnable": true,
-                                     "ModeHighfrequencyLocation": false,
-                                     "SearchAPIEnable": true,
-                                     "DistanceAPIEnable": true,
-                                     "searchAPICreationRegionEnable": true])
+//        defaults.register(defaults: ["TrackingEnable": true,
+//                                     "ModeHighfrequencyLocation": false,
+//                                     "SearchAPIEnable": true,
+//                                     "DistanceAPIEnable": true,
+//                                     "searchAPICreationRegionEnable": true])
         self.activateGeofenceService()
     }
 
@@ -163,7 +163,7 @@ import AirshipCore
     ///   - woosmapKey: key use for woosmap service
     ///   - googleAPIKey: key use for googlemap service
     ///   - configurationProfile: configuration profile
-    @objc internal static func setup(woosmapKey: String, googleAPIKey: String, configurationProfile: String) {
+    internal static func setup(woosmapKey: String, googleAPIKey: String, configurationProfile: String) {
         shared = WoosmapGeofenceService.init( woosmapKey, googleAPIKey, configurationProfile)
     }
     
@@ -181,6 +181,9 @@ import AirshipCore
         if let savedwoosmapkey = defaults.string(forKey: "WoosmapGeofenceService.woosmap"){
             let savedprofile = defaults.string(forKey: "WoosmapGeofenceService.profile") ?? ""
             shared = WoosmapGeofenceService.init( savedwoosmapkey, "", savedprofile)
+        }
+        else{
+            shared = WoosmapGeofenceService.init( "", "", "")
         }
     }
 
