@@ -95,14 +95,14 @@ import WoosmapGeofencing
             )
         }
     }
-    
+
     /// Updating new woosmap key
     /// - Parameter command: -
     @objc(setWoosmapApiKey:)
     func setWoosmapApiKey(command: CDVInvokedUrlCommand) {
         var pluginResult: CDVPluginResult = CDVPluginResult()
         if let woosmapkey = command.arguments[0] as? String {
-            if WoosmapGeofenceService.shared != nil{
+            if WoosmapGeofenceService.shared != nil {
                 do {
                     try WoosmapGeofenceService.shared?.setWoosmapAPIKey(key: woosmapkey)
                     pluginResult = CDVPluginResult(
@@ -117,8 +117,7 @@ import WoosmapGeofencing
             } else {
                 pluginResult = showWoomapError(WoosmapGeofenceMessage.woosemapNotInitialized)
             }
-        }
-        else{
+        } else {
             pluginResult = showWoomapError(WoosmapGeofenceMessage.invalidWoosmapKey)
         }
         self.commandDelegate.send(
@@ -126,7 +125,7 @@ import WoosmapGeofencing
             callbackId: command.callbackId
         )
     }
-        
+
     /// Start Tracking with new profile info
     /// - Parameter command:  liveTracking / passiveTracking / visitsTracking
     @objc(startTracking:)
@@ -787,7 +786,7 @@ import WoosmapGeofencing
 
         self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
     }
-    
+
     // MARK: Marketing
     @objc(watchMarketingCloud:)
     func watchMarketingCloud(command: CDVInvokedUrlCommand) {
@@ -1105,7 +1104,7 @@ import WoosmapGeofencing
         result["duration"] = woosdata.duration.text
         return result
     }
-    
+
     private func formatAirshipData(woosdata: AirshipData) -> [AnyHashable: Any] {
         var result: [AnyHashable: Any] = [:]
         result["name"] = woosdata.eventname
@@ -1130,7 +1129,7 @@ import WoosmapGeofencing
         result["properties"] = propertiesFormat
         return result
     }
-    
+
     private func formatMarketingData(woosdata: MarketingData) -> [AnyHashable: Any] {
         var result: [AnyHashable: Any] = [:]
         result["name"] = woosdata.eventname
@@ -1282,7 +1281,7 @@ import WoosmapGeofencing
             }
         }
     }
-    
+
     @objc func marketingEvents(_ notification: Notification) {
         if let marketingdata = notification.userInfo?["Marketing"] as? MarketingData {
             let pluginResult: CDVPluginResult  = CDVPluginResult(
@@ -1297,23 +1296,27 @@ import WoosmapGeofencing
             }
         }
     }
-    
+
     @objc(setPoiRadius:)
     func setPoiRadius (command: CDVInvokedUrlCommand) {
         var pluginResult: CDVPluginResult = CDVPluginResult()
-        if let radiusValue = command.arguments[0] as? String {
-            do {
-                try WoosmapGeofenceService.shared?.setPoiRadius(radius: radiusValue)
-                pluginResult = CDVPluginResult(
-                    status: CDVCommandStatus_OK,
-                    messageAs: "OK"
-                )
-            } catch let error as WoosGeofenceError {
-                pluginResult = showWoomapError(error.localizedDescription)
-            } catch {
-                pluginResult = showWoomapError(error.localizedDescription)
-            }
+        if WoosmapGeofenceService.shared != nil {
+            var userInputRadiusValue: String = ""
 
+            if let radiusValue = command.arguments[0] as? Int32 {
+                userInputRadiusValue = String(radiusValue)
+            } else if let radiusValue = command.arguments[0] as? String {
+                userInputRadiusValue = radiusValue
+            } else {
+                pluginResult = showWoomapError(WoosmapGeofenceMessage.invalidPOIRadius)
+            }
+            if  userInputRadiusValue != "" {
+                WoosmapGeofenceService.shared?.setPoiRadius(radius: userInputRadiusValue)
+                pluginResult = CDVPluginResult( status: CDVCommandStatus_OK,
+                                                messageAs: "OK")
+            }
+        } else {
+            pluginResult = showWoomapError(WoosmapGeofenceMessage.woosemapNotInitialized)
         }
 
         self.commandDelegate.send(
