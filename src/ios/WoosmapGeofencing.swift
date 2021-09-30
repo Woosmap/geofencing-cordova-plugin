@@ -1297,6 +1297,30 @@ import WoosmapGeofencing
             }
         }
     }
+    
+    @objc(setPoiRadius:)
+    func setPoiRadius (command: CDVInvokedUrlCommand) {
+        var pluginResult: CDVPluginResult = CDVPluginResult()
+        if let radiusValue = command.arguments[0] as? String {
+            do {
+                try WoosmapGeofenceService.shared?.setPoiRadius(radius: radiusValue)
+                pluginResult = CDVPluginResult(
+                    status: CDVCommandStatus_OK,
+                    messageAs: "OK"
+                )
+            } catch let error as WoosGeofenceError {
+                pluginResult = showWoomapError(error.localizedDescription)
+            } catch {
+                pluginResult = showWoomapError(error.localizedDescription)
+            }
+
+        }
+
+        self.commandDelegate.send(
+            pluginResult,
+            callbackId: command.callbackId
+        )
+    }
 
 }
 

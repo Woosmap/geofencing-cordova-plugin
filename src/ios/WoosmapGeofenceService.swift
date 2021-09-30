@@ -400,6 +400,12 @@ import AirshipCore
         }
         MockDataVisit().mockVisitData()
     }
+    
+    /// Setting POI redious
+    /// - Parameter radius: integer or string for radius  value
+    public func setPoiRadius(radius:String) throws {
+        WoosmapGeofencing.shared.setPoiRadius(radius: radius)
+    }
 
 }
 
