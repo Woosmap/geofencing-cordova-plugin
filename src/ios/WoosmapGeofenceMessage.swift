@@ -27,5 +27,5 @@ internal struct WoosmapGeofenceMessage {
     static let locationDeleted = "Deleted"
     static let regionDeleted = "Deleted"
     static let invalidProfile = "Invalid profile"
-    static let invalidPOIRadius = "POI Radius should be integer or string"
+    static let invalidPOIRadius = "POI Radius should be an integer or a string"
 }
