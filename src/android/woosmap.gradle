@@ -7,13 +7,9 @@ dependencies {
 	implementation 'com.github.woosmap:woosmap-geofencing-android-sdk:1.1.2'
 	implementation 'androidx.appcompat:appcompat:1.1.0'
 	implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-	implementation 'com.google.firebase:firebase-core:17.2.2'
-	implementation 'com.google.firebase:firebase-messaging:20.1.0'
 	implementation 'com.google.android.gms:play-services-location:17.0.0'
 	implementation 'androidx.multidex:multidex:2.0.1'
-
 	implementation 'org.ojalgo:ojalgo:37.1.1'
-
 	implementation 'com.google.truth:truth:0.42'
 	implementation 'com.google.android.gms:play-services-maps:17.0.0'
 	implementation 'androidx.room:room-runtime:2.2.4'
