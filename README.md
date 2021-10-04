@@ -41,15 +41,6 @@ cordova plugin add @woosmap/cordova-plugin-geofencing --link
 
 ---
 
-**_Before running the app on the Android platform, you need to perform the following step._**
-
-_**Configuring Github username and access token**_
-Since the plugin uses Woosmap Geofencing SDK deployed on Github packages, you will need to create a Github access token and configure it in your dev environment. Please go through this [link](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) to know about creating access tokens in Github. Make sure you have given `read-package` permission while creating the token.
-
-Once you create your Github personal access token, create two environment variables. Variable `GITHUB_USER` will contain your Github user id and variable `GITHUB_PERSONAL_ACCESS_TOKEN` will contain your Github personal access token. Check this [link](https://saralgyaan.com/posts/set-passwords-and-secret-keys-in-environment-variables-maclinuxwindows-python-quicktip/) to know how to set up environment variables on Windows and Mac. 
-
----
-
 Once you have done this build and run the project using following command:
 
 ```
