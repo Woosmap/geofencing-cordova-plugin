@@ -19,38 +19,38 @@ exports.defineAutoTests = function () {
         it('2. getPermissionsStatus should be a function ', function(){
             expect(typeof cordova.plugins.WoosmapGeofencing.getPermissionsStatus).toEqual('function');
         });
-		
-		it('3. getPermissionsStatus Should check the permissions status', function(done){
-			var win = function (data) {
-				expect(data).toBeDefined();
-				done();
-			};
-			var fail = function (e) {
-				console.error(e.message);
-				expect(true).toEqual(false);
-				done();
-			};
-			cordova.plugins.WoosmapGeofencing.getPermissionsStatus(win, fail);
-		});
 
-		it('4. requestPermissions should be a function ', function(){
+        it('3. getPermissionsStatus Should check the permissions status', function(done){
+            var win = function (data) {
+                expect(data).toBeDefined();
+                done();
+            };
+            var fail = function (e) {
+                console.error(e.message);
+                expect(true).toEqual(false);
+                done();
+            };
+            cordova.plugins.WoosmapGeofencing.getPermissionsStatus(win, fail);
+        });
+
+        it('4. requestPermissions should be a function ', function(){
             expect(typeof cordova.plugins.WoosmapGeofencing.requestPermissions).toEqual('function');
         });
 
         it('5. requestPermissions Should request background location permission', function(done){
-			var win = function (data) {
-				expect(data).toBeDefined();
-				done();
-			};
-			var fail = function (e) {
-				console.error(e.message);
-				expect(true).toEqual(false);
-				done();
-			};
-			cordova.plugins.WoosmapGeofencing.requestPermissions(true,win, fail);
-		});
+            var win = function (data) {
+                expect(data).toBeDefined();
+                done();
+            };
+            var fail = function (e) {
+                console.error(e.message);
+                expect(true).toEqual(false);
+                done();
+            };
+            cordova.plugins.WoosmapGeofencing.requestPermissions(true,win, fail);
+        });
 
-		it('6. requestPermissions Should request foreground location permission', function(done){
+        it('6. requestPermissions Should request foreground location permission', function(done){
             var win = function (data) {
                 expect(data).toBeDefined();
                 done();
@@ -81,24 +81,11 @@ exports.defineAutoTests = function () {
             cordova.plugins.WoosmapGeofencing.setWoosmapApiKey('',win, fail);
         });
 
-        it('9. setWoosmapApiKey should accept a non empty API key', function(done){
-            var win = function (p) {
-                expect(p).toBeDefined();
-                done();
-            };
-            var fail = function (e) {
-                console.error(e.message);
-                expect(true).toEqual(false);
-                done();
-            };
-            cordova.plugins.WoosmapGeofencing.setWoosmapApiKey('3b705030-e85d-4bf0-a1be-5ac7372c91d5',win, fail);
-        });
-
-        it('10. initialize should be a function ', function(){
+        it('9. initialize should be a function ', function(){
             expect(typeof cordova.plugins.WoosmapGeofencing.initialize).toEqual('function')
         });
 
-        it('11. initialize throw exception when invalid tracking profile is passed', function(done){
+        it('10. initialize throw exception when invalid tracking profile is passed', function(done){
             var _config = {
                 trackingProfile: "abc profile"
             };
@@ -115,7 +102,7 @@ exports.defineAutoTests = function () {
             cordova.plugins.WoosmapGeofencing.initialize(_config,win, fail);
         });
 
-        it('12. initialize Should initialize SDK when no config values are passed', function(done){
+        it('11. initialize Should initialize SDK when no config values are passed', function(done){
             var win = function (p) {
                 expect(p).toBeDefined();
                 done();
@@ -126,6 +113,20 @@ exports.defineAutoTests = function () {
                 done();
             };
             cordova.plugins.WoosmapGeofencing.initialize(null,win, fail);
+        });
+
+        it('12. setWoosmapApiKey should accept a non empty API key', function(done){
+            var win = function (p) {
+                expect(p).toBeDefined();
+                done();
+            };
+            var fail = function (e) {
+                console.error(e.message);
+                console.error("key");
+                expect(true).toEqual(false);
+                done();
+            };
+            cordova.plugins.WoosmapGeofencing.setWoosmapApiKey('3b705030-e85d-4bf0-a1be-5ac7372c91d5',win, fail);
         });
 
         it('13. watchLocation should be a function ', function(){
@@ -456,6 +457,52 @@ exports.defineAutoTests = function () {
             cordova.plugins.WoosmapGeofencing.clearMarketingCloudWatch(marketingCloudWatchId);
             expect(true).toEqual(true);
             done();
+        });
+
+        it('55. setPoiRadius should be a function ', function(){
+            expect(typeof cordova.plugins.WoosmapGeofencing.setPoiRadius).toEqual('function')
+        });
+
+        it('56. setPoiRadius should set radius to "radiusPOI"', function(done){
+            var win = function (data) {
+                expect(true).toEqual(true);
+                done();
+            };
+            var fail = function (e) {
+                expect(e).toBeDefined();
+                console.log(e.message);
+                done();
+            };
+            cordova.plugins.WoosmapGeofencing.setPoiRadius("radiusPOI",win,fail);
+
+        });
+
+        it('57. setPoiRadius should set radius to 100', function(done){
+            var win = function (data) {
+                expect(true).toEqual(true);
+                done();
+            };
+            var fail = function (e) {
+                expect(e).toBeDefined();
+                console.log(e.message);
+                done();
+            };
+            cordova.plugins.WoosmapGeofencing.setPoiRadius(100,win,fail);
+
+        });
+
+        it('58. setPoiRadius should not set radius to 100.20', function(done){
+            var win = function (data) {
+                expect(true).toEqual(true);
+                done();
+            };
+            var fail = function (e) {
+                expect(e).toBeDefined();
+                console.log(e.message);
+                done();
+            };
+            cordova.plugins.WoosmapGeofencing.setPoiRadius(100.20,win,fail);
+
         });
 
     });
