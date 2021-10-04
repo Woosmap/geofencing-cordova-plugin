@@ -1305,6 +1305,8 @@ import WoosmapGeofencing
 
             if let radiusValue = command.arguments[0] as? Int32 {
                 userInputRadiusValue = String(radiusValue)
+            } else if let radiusValue = command.arguments[0] as? Double {
+                userInputRadiusValue = String(radiusValue)
             } else if let radiusValue = command.arguments[0] as? String {
                 userInputRadiusValue = radiusValue
             } else {

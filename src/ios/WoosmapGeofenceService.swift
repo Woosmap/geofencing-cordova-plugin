@@ -419,7 +419,16 @@ import AirshipCore
     /// - Parameter radius: integer or string for radius  value
     public func setPoiRadius(radius: String) {
         self.defaultPOIRadius = radius
-        WoosmapGeofencing.shared.setPoiRadius(radius: radius)
+        if let poiRadius = Int(radius){
+            WoosmapGeofencing.shared.setPoiRadius(radius: poiRadius)
+        }
+        else if let poiRadius = Double(radius){
+            WoosmapGeofencing.shared.setPoiRadius(radius: poiRadius)
+        }
+        else{
+            WoosmapGeofencing.shared.setPoiRadius(radius: radius)
+        }
+        
     }
 
 }
