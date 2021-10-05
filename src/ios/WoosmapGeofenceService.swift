@@ -255,7 +255,7 @@ import AirshipCore
         // Set delagate for Marketing Cloud
         WoosmapGeofencing.shared.getLocationService().marketingCloudEventsDelegate = marketingCloudEvents
         if defaultPOIRadius != "" {
-            WoosmapGeofencing.shared.setPoiRadius(radius: defaultPOIRadius)
+            WoosmapGeofencing.shared.setPoiRadius(radius: formatedRadius(radius: defaultPOIRadius))
         }
 
         if let savedProfile = ConfigurationProfile(rawValue: defaultProfile) {
@@ -419,16 +419,22 @@ import AirshipCore
     /// - Parameter radius: integer or string for radius  value
     public func setPoiRadius(radius: String) {
         self.defaultPOIRadius = radius
+        WoosmapGeofencing.shared.setPoiRadius(radius: formatedRadius(radius: radius))
+    }
+    
+    /// Format String value to proper datatype
+    /// - Parameter radius: radius of POI
+    /// - Returns: Formatted radius
+    private func formatedRadius (radius: String) -> Any {
         if let poiRadius = Int(radius){
-            WoosmapGeofencing.shared.setPoiRadius(radius: poiRadius)
+            return poiRadius
         }
         else if let poiRadius = Double(radius){
-            WoosmapGeofencing.shared.setPoiRadius(radius: poiRadius)
+            return poiRadius
         }
         else{
-            WoosmapGeofencing.shared.setPoiRadius(radius: radius)
+            return  radius
         }
-        
     }
 
 }
