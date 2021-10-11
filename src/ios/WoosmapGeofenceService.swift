@@ -181,13 +181,13 @@ import AirshipCore
         } else {
             self.woosmapKey = key
             WoosmapGeofencing.shared.setWoosmapAPIKey(key: self.woosmapKey)
-            
+
             // Set the search url Woosmap API
             WoosmapGeofencing.shared.setSearchWoosmapAPI(api: searchWoosmapAPI)
 
             // Set the distance url Woosmap API
             WoosmapGeofencing.shared.setDistanceWoosmapAPI(api: distanceWoosmapAPI)
-            
+
             let defaults = UserDefaults.standard
             defaults.set(key, forKey: "WoosmapGeofenceService.woosmap")
         }
@@ -237,11 +237,11 @@ import AirshipCore
 
         // Enable Visit and set delegate of protocol Visit
         WoosmapGeofencing.shared.getLocationService().visitDelegate = dataVisit
-        
-        //Set delagate for Airship Cloud
+
+        // Set delagate for Airship Cloud
         WoosmapGeofencing.shared.getLocationService().airshipEventsDelegate = airshipEvents
-        
-        //Set delagate for Marketing Cloud
+
+        // Set delagate for Marketing Cloud
         WoosmapGeofencing.shared.getLocationService().marketingCloudEventsDelegate = marketingCloudEvents
 
         if let savedProfile = ConfigurationProfile(rawValue: defaultProfile) {
@@ -374,8 +374,8 @@ import AirshipCore
     /// Delete all location from system
     public func  deleteLocations() {
         DataLocation().eraseLocations()
-        //Native SDK Works independently
-        //DataPOI().erasePOI()
+        // Native SDK Works independently
+        // DataPOI().erasePOI()
     }
 
     /// Delete all ZOI regions
@@ -399,6 +399,12 @@ import AirshipCore
             WoosmapGeofenceService.setup()
         }
         MockDataVisit().mockVisitData()
+    }
+    
+    /// Setting up SFMCCredentials
+    /// - Parameter credentials: Key/value pair for credentials settings
+    public func setSFMCCredentials(credentials: [String: String]) {
+        WoosmapGeofencing.shared.setSFMCCredentials(credentials: credentials)
     }
 
 }

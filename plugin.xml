@@ -74,7 +74,7 @@
         <source url="https://github.com/CocoaPods/Specs.git"/>
       </config>
       <pods use-frameworks="true" inhibit-all-warnings="true">
-        <pod name="WoosmapGeofencing" git = "https://github.com/woosmap/woosmap-geofencing-ios-sdk.git" tag="1.2.0" swift-version="5" />
+        <pod name="WoosmapGeofencing" git = "https://github.com/woosmap/woosmap-geofencing-ios-sdk.git" tag="1.3.0" swift-version="5" />
       </pods>
     </podspec>
   </platform>
