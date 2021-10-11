@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -323,11 +324,14 @@ public class WoosmapGeofencing extends CordovaPlugin {
                     throw new Exception("Required key missing: contactKey" );
                 }
 
-                while (credentialsObject.keys().hasNext()){
-                    key = credentialsObject.keys().next();
+                Iterator<String> keys = credentialsObject.keys();
+
+                while (keys.hasNext()){
+                    key = keys.next();
                     SFMCInfo.put(key,credentialsObject.getString(key));
                 }
                 WoosmapSettings.SFMCCredentials = SFMCInfo;
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
             }
             else{
                 throw new Exception("Credentials cannot be empty.");
