@@ -606,6 +606,52 @@ exports.defineAutoTests = function () {
             cordova.plugins.WoosmapGeofencing.setSFMCCredentials(sfmcCredentials,win, fail);
         });
 
+        it('62. setPoiRadius should be a function ', function(){
+            expect(typeof cordova.plugins.WoosmapGeofencing.setPoiRadius).toEqual('function')
+        });
+
+        it('63. setPoiRadius should set radius to "radiusPOI"', function(done){
+            var win = function (data) {
+                expect(true).toEqual(true);
+                done();
+            };
+            var fail = function (e) {
+                expect(e).toBeDefined();
+                console.log(e.message);
+                done();
+            };
+            cordova.plugins.WoosmapGeofencing.setPoiRadius("radiusPOI",win,fail);
+
+        });
+
+        it('64. setPoiRadius should set radius to 100', function(done){
+            var win = function (data) {
+                expect(true).toEqual(true);
+                done();
+            };
+            var fail = function (e) {
+                expect(e).toBeDefined();
+                console.log(e.message);
+                done();
+            };
+            cordova.plugins.WoosmapGeofencing.setPoiRadius(100,win,fail);
+
+        });
+
+        it('65. setPoiRadius should set radius to  100.20', function(done){
+            var win = function (data) {
+                expect(true).toEqual(true);
+                done();
+            };
+            var fail = function (e) {
+                expect(e).toBeDefined();
+                console.log(e.message);
+                done();
+            };
+            cordova.plugins.WoosmapGeofencing.setPoiRadius(100.20,win,fail);
+
+        });
+
     });
 
     describe('cordova.plugins.WoosmapDb',function(){
