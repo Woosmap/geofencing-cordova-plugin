@@ -840,6 +840,35 @@ import WoosmapGeofencing
         self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
     }
 
+    @objc(setSFMCCredentials:)
+    func setSFMCCredentials (command: CDVInvokedUrlCommand) {
+        var pluginResult: CDVPluginResult = CDVPluginResult()
+        if WoosmapGeofenceService.shared != nil {
+            if let credentials = command.arguments[0] as? [String: String] {
+                do {
+                    try WoosmapGeofenceService.shared?.setSFMCCredentials(credentials: credentials)
+                    pluginResult = CDVPluginResult(
+                        status: CDVCommandStatus_OK,
+                        messageAs: "OK"
+                    )
+                } catch let error as WoosGeofenceError {
+                    pluginResult = showWoomapError(error.localizedDescription)
+                } catch {
+                    pluginResult = showWoomapError(error.localizedDescription)
+                }
+            } else {
+                pluginResult = showWoomapError(WoosmapGeofenceMessage.invalidSFMCCredentials)
+            }
+        } else {
+            pluginResult = showWoomapError(WoosmapGeofenceMessage.woosemapNotInitialized)
+        }
+
+        self.commandDelegate.send(
+            pluginResult,
+            callbackId: command.callbackId
+        )
+    }
+
     // MARK: DB
     @objc(getLocations:)
     func getLocations(command: CDVInvokedUrlCommand) {

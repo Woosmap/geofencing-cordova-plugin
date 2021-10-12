@@ -459,13 +459,14 @@ exports.defineAutoTests = function () {
             done();
         });
 
-        it('55. setPoiRadius should be a function ', function(){
-            expect(typeof cordova.plugins.WoosmapGeofencing.setPoiRadius).toEqual('function')
+        it('55. setSFMCCredentials should be a function ', function(){
+            expect(typeof cordova.plugins.WoosmapGeofencing.setSFMCCredentials).toEqual('function')
         });
 
-        it('56. setPoiRadius should set radius to "radiusPOI"', function(done){
+        it('56. setSFMCCredentials should throw exception if authenticationBaseURI key is not passed ', function(done){
             var win = function (data) {
-                expect(true).toEqual(true);
+                console.error('setSFMCCredentials passed without passing required key');
+                expect(true).toEqual(false);
                 done();
             };
             var fail = function (e) {
@@ -473,13 +474,23 @@ exports.defineAutoTests = function () {
                 console.log(e.message);
                 done();
             };
-            cordova.plugins.WoosmapGeofencing.setPoiRadius("radiusPOI",win,fail);
 
+            var sfmcCredentials = {
+                authenticationBaseURI1: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.auth.marketingcloudapis.com",
+                restBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.rest.marketingcloudapis.com",
+                client_id: "xxxxxxxxxxxxxxx",
+                client_secret: "xxxxxxxxxxxxxxx",
+                contactKey: "ID001",
+                regionEnteredEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                regionExitedEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            };
+            cordova.plugins.WoosmapGeofencing.setSFMCCredentials(sfmcCredentials,win, fail);
         });
 
-        it('57. setPoiRadius should set radius to 100', function(done){
+        it('57. setSFMCCredentials should throw exception if restBaseURI key is not passed ', function(done){
             var win = function (data) {
-                expect(true).toEqual(true);
+                console.error('setSFMCCredentials passed without passing required key');
+                expect(true).toEqual(false);
                 done();
             };
             var fail = function (e) {
@@ -487,13 +498,23 @@ exports.defineAutoTests = function () {
                 console.log(e.message);
                 done();
             };
-            cordova.plugins.WoosmapGeofencing.setPoiRadius(100,win,fail);
 
+            var sfmcCredentials = {
+                authenticationBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.auth.marketingcloudapis.com",
+                restBaseURI1: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.rest.marketingcloudapis.com",
+                client_id: "xxxxxxxxxxxxxxx",
+                client_secret: "xxxxxxxxxxxxxxx",
+                contactKey: "ID001",
+                regionEnteredEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                regionExitedEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            };
+            cordova.plugins.WoosmapGeofencing.setSFMCCredentials(sfmcCredentials,win, fail);
         });
 
-        it('58. setPoiRadius should set radius to  100.20', function(done){
+        it('58. setSFMCCredentials should throw exception if client_id key is not passed ', function(done){
             var win = function (data) {
-                expect(true).toEqual(true);
+                console.error('setSFMCCredentials passed without passing required key');
+                expect(true).toEqual(false);
                 done();
             };
             var fail = function (e) {
@@ -501,8 +522,88 @@ exports.defineAutoTests = function () {
                 console.log(e.message);
                 done();
             };
-            cordova.plugins.WoosmapGeofencing.setPoiRadius(100.20,win,fail);
 
+            var sfmcCredentials = {
+                authenticationBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.auth.marketingcloudapis.com",
+                restBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.rest.marketingcloudapis.com",
+                client_id1: "xxxxxxxxxxxxxxx",
+                client_secret: "xxxxxxxxxxxxxxx",
+                contactKey: "ID001",
+                regionEnteredEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                regionExitedEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            };
+            cordova.plugins.WoosmapGeofencing.setSFMCCredentials(sfmcCredentials,win, fail);
+        });
+
+        it('59. setSFMCCredentials should throw exception if client_secret key is not passed ', function(done){
+            var win = function (data) {
+                console.error('setSFMCCredentials passed without passing required key');
+                expect(true).toEqual(false);
+                done();
+            };
+            var fail = function (e) {
+                expect(e).toBeDefined();
+                console.log(e.message);
+                done();
+            };
+
+            var sfmcCredentials = {
+                authenticationBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.auth.marketingcloudapis.com",
+                restBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.rest.marketingcloudapis.com",
+                client_id: "xxxxxxxxxxxxxxx",
+                client_secret1: "xxxxxxxxxxxxxxx",
+                contactKey: "ID001",
+                regionEnteredEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                regionExitedEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            };
+            cordova.plugins.WoosmapGeofencing.setSFMCCredentials(sfmcCredentials,win, fail);
+        });
+
+        it('60. setSFMCCredentials should throw exception if contactKey key is not passed ', function(done){
+            var win = function (data) {
+                console.error('setSFMCCredentials passed without passing required key');
+                expect(true).toEqual(false);
+                done();
+            };
+            var fail = function (e) {
+                expect(e).toBeDefined();
+                console.log(e.message);
+                done();
+            };
+
+            var sfmcCredentials = {
+                authenticationBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.auth.marketingcloudapis.com",
+                restBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.rest.marketingcloudapis.com",
+                client_id: "xxxxxxxxxxxxxxx",
+                client_secret: "xxxxxxxxxxxxxxx",
+                contactKey1: "ID001",
+                regionEnteredEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                regionExitedEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            };
+            cordova.plugins.WoosmapGeofencing.setSFMCCredentials(sfmcCredentials,win, fail);
+        });
+
+        it('61. setSFMCCredentials should set credentials if all reuired keys are passed ', function(done){
+            var win = function (data) {
+                expect(data).toBeDefined();
+                done();
+            };
+            var fail = function (e) {
+                console.error(e.message);
+                expect(true).toEqual(false);
+                done();
+            };
+
+            var sfmcCredentials = {
+                authenticationBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.auth.marketingcloudapis.com",
+                restBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.rest.marketingcloudapis.com",
+                client_id: "xxxxxxxxxxxxxxx",
+                client_secret: "xxxxxxxxxxxxxxx",
+                contactKey: "ID001",
+                regionEnteredEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                regionExitedEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            };
+            cordova.plugins.WoosmapGeofencing.setSFMCCredentials(sfmcCredentials,win, fail);
         });
 
     });

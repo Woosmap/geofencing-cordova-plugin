@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -74,6 +75,7 @@ public class WoosmapGeofencing extends CordovaPlugin {
     private static final String METHOD_WATCH_MARKETING_CLOUD = "watchMarketingCloud";
     private static final String METHOD_CLEAR_MARKETING_CLOUD_WATCH = "clearMarketingCloudWatch";
     private static final String METHOD_SET_POI_RADIUS = "setPoiRadius";
+    private static final String METHOD_SET_SFMC_CREDENTIALS = "setSFMCCredentials";
 
 
     String [] foregroundLocationPermissions = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
@@ -233,6 +235,9 @@ public class WoosmapGeofencing extends CordovaPlugin {
         }else if(action.equals(METHOD_SET_POI_RADIUS)){
             setPoiRadius(args,callbackContext);
         }
+        else if (action.equals(METHOD_SET_SFMC_CREDENTIALS)){
+            setSFMCCredentials(args,callbackContext);
+        }
         else{
             WoosmapUtil.sendErrorResponse(callbackContext,PluginResult.Status.INVALID_ACTION,"Method not implemented");
         }
@@ -291,6 +296,53 @@ public class WoosmapGeofencing extends CordovaPlugin {
             return false;
         }
         return true;
+    }
+
+    /***
+     * Sets Sales Force Marketing Cloud credentials
+     * @param args accepts Sales Force Marketing Cloud credentials key in a JSON array
+     * @param callbackContext Cordova callback context
+     */
+    private void setSFMCCredentials(JSONArray args, CallbackContext callbackContext){
+        try{
+            if (args.length()>0){
+                JSONObject credentialsObject;
+                HashMap<String, String> SFMCInfo = new HashMap<>();
+                String key;
+
+                credentialsObject = args.getJSONObject(0);
+                if (!credentialsObject.has("authenticationBaseURI")){
+                    throw new Exception("Required key missing: authenticationBaseURI" );
+                }
+                if (!credentialsObject.has("restBaseURI")){
+                    throw new Exception("Required key missing: restBaseURI" );
+                }
+                if (!credentialsObject.has("client_id")){
+                    throw new Exception("Required key missing: client_id" );
+                }
+                if (!credentialsObject.has("client_secret")){
+                    throw new Exception("Required key missing: client_secret" );
+                }
+                if (!credentialsObject.has("contactKey")){
+                    throw new Exception("Required key missing: contactKey" );
+                }
+
+                Iterator<String> keys = credentialsObject.keys();
+
+                while (keys.hasNext()){
+                    key = keys.next();
+                    SFMCInfo.put(key,credentialsObject.getString(key));
+                }
+                WoosmapSettings.SFMCCredentials = SFMCInfo;
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+            }
+            else{
+                throw new Exception("Credentials cannot be empty.");
+            }
+        }
+        catch (Exception ex){
+            WoosmapUtil.sendErrorResponse(callbackContext, PluginResult.Status.ERROR,ex.getMessage());
+        }
     }
 
     /***
