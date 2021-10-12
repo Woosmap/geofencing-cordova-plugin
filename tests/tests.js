@@ -470,6 +470,7 @@ exports.defineAutoTests = function () {
             };
             var fail = function (e) {
                 expect(e).toBeDefined();
+                console.log(e.message);
                 done();
             };
 
@@ -492,8 +493,8 @@ exports.defineAutoTests = function () {
                 done();
             };
             var fail = function (e) {
-                console.log('setSFMCCredentials threw exception when restBaseURI is missing');
                 expect(e).toBeDefined();
+                console.log(e.message);
                 done();
             };
 
@@ -517,6 +518,7 @@ exports.defineAutoTests = function () {
             };
             var fail = function (e) {
                 expect(e).toBeDefined();
+                console.log(e.message);
                 done();
             };
 
@@ -540,6 +542,7 @@ exports.defineAutoTests = function () {
             };
             var fail = function (e) {
                 expect(e).toBeDefined();
+                console.log(e.message);
                 done();
             };
 
@@ -563,6 +566,7 @@ exports.defineAutoTests = function () {
             };
             var fail = function (e) {
                 expect(e).toBeDefined();
+                console.log(e.message);
                 done();
             };
 
