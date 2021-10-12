@@ -259,6 +259,19 @@ const watchMarketingCloud = (success, error) => {
 const clearMarketingCloudWatch = (watchId) => {
   exec(null, null, "WoosmapGeofencing", "clearMarketingCloudWatch", [watchId]);
 };
+/**
+ * @method setSFMCCredentials
+ * @description Sets Sales Force Marketing Cloud (SFMC) credentials
+ * @param {Object} arg0 - A JSON object with SFMC credentials. Keys authenticationBaseURI, restBaseURI, client_id, client_secret and contactKey are required.
+ * @param {function} success - A callback that will be called on success.
+ * @param {function} error - A callback that will be called on error.
+ */
+ const setSFMCCredentials = function (arg0, success, error) {
+  if (arg0 == null) {
+    arg0 = {};
+  }
+  exec(success, error, "WoosmapGeofencing", "setSFMCCredentials", [arg0]);
+};
 
 const WoosmapGeofencing = {
   initialize,
@@ -283,7 +296,8 @@ const WoosmapGeofencing = {
   customizeNotification,
   setWoosmapApiKey,
   watchMarketingCloud,
-  clearMarketingCloudWatch
+  clearMarketingCloudWatch,
+  setSFMCCredentials
 };
 
 module.exports = WoosmapGeofencing;
