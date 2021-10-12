@@ -845,33 +845,16 @@ import WoosmapGeofencing
         var pluginResult: CDVPluginResult = CDVPluginResult()
         if WoosmapGeofenceService.shared != nil {
             if let credentials = command.arguments[0] as? [String: String] {
-                //check required keys
-                var requiredSatisfied = true
-                if credentials["authenticationBaseURI"] == nil {
-                    requiredSatisfied = false
-                    pluginResult = showWoomapError(WoosmapGeofenceMessage.requried_authenticationBaseURI)
-                }
-                else if credentials["restBaseURI"] == nil {
-                    requiredSatisfied = false
-                    pluginResult = showWoomapError(WoosmapGeofenceMessage.requried_restBaseURI)
-                }
-                else if credentials["client_id"] == nil {
-                    requiredSatisfied = false
-                    pluginResult = showWoomapError(WoosmapGeofenceMessage.requried_client_id)
-                }
-                else if credentials["client_secret"] == nil {
-                    requiredSatisfied = false
-                    pluginResult = showWoomapError(WoosmapGeofenceMessage.requried_client_secret)
-                }
-                else if credentials["contactKey"] == nil {
-                    requiredSatisfied = false
-                    pluginResult = showWoomapError(WoosmapGeofenceMessage.requried_contactKey)
-                }
-                
-                if requiredSatisfied {
-                    WoosmapGeofenceService.shared?.setSFMCCredentials(credentials: credentials)
-                    pluginResult = CDVPluginResult( status: CDVCommandStatus_OK,
-                                                    messageAs: "OK")
+                do {
+                    try WoosmapGeofenceService.shared?.setSFMCCredentials(credentials: credentials)
+                    pluginResult = CDVPluginResult(
+                        status: CDVCommandStatus_OK,
+                        messageAs: "OK"
+                    )
+                } catch let error as WoosGeofenceError {
+                    pluginResult = showWoomapError(error.localizedDescription)
+                } catch {
+                    pluginResult = showWoomapError(error.localizedDescription)
                 }
             } else {
                 pluginResult = showWoomapError(WoosmapGeofenceMessage.invalidSFMCCredentials)

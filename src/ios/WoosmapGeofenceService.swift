@@ -403,8 +403,32 @@ import AirshipCore
     
     /// Setting up SFMCCredentials
     /// - Parameter credentials: Key/value pair for credentials settings
-    public func setSFMCCredentials(credentials: [String: String]) {
-        WoosmapGeofencing.shared.setSFMCCredentials(credentials: credentials)
+    /// - Throws: Error for required keys
+    @objc public func setSFMCCredentials(credentials: [String: String]) throws {
+        var requiredSatisfied = true
+        if credentials["authenticationBaseURI"] == nil {
+            requiredSatisfied = false
+            throw WoosGeofenceError(WoosmapGeofenceMessage.requried_authenticationBaseURI)
+        }
+        else if credentials["restBaseURI"] == nil {
+            requiredSatisfied = false
+            throw WoosGeofenceError(WoosmapGeofenceMessage.requried_restBaseURI)
+        }
+        else if credentials["client_id"] == nil {
+            requiredSatisfied = false
+            throw WoosGeofenceError(WoosmapGeofenceMessage.requried_client_id)
+        }
+        else if credentials["client_secret"] == nil {
+            requiredSatisfied = false
+            throw WoosGeofenceError(WoosmapGeofenceMessage.requried_client_secret)
+        }
+        else if credentials["contactKey"] == nil {
+            requiredSatisfied = false
+            throw WoosGeofenceError(WoosmapGeofenceMessage.requried_contactKey)
+        }
+        if requiredSatisfied {
+            WoosmapGeofencing.shared.setSFMCCredentials(credentials: credentials)
+        }
     }
 
 }
