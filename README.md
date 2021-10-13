@@ -464,6 +464,41 @@ cordova.plugins.WoosmapGeofencing.customizeNotification(config,success,error);
 
 To customize other attributes of the notification, please check [this](https://community.woosmap.com/geofencing-mobile-sdk/android/setup-firebase-cloud-messaging/#customize-notifications) section of Woosmap Geofencing SDK.
 
+### Initialize Salesforce MarketingCloud Connector
+---
+
+The SDK needs some input like credentials and object key to perform the API call to Salesforce Marketing Cloud API.
+
+**Input to initialize the SFMC connector**<br/>
+
+| Parameters                             | Description                                                                                               | Required |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------- | -------- |
+| authenticationBaseURI                  | Authentication Base URI                                                                                   | Required |
+| restBaseURI                            | REST Base URI                                                                                             | Required |
+| client\_id                             | client\_id (journey\_read and list\_and\_subscribers\_read rights are required)                           | Required |
+| client\_secret                         | client\_secret (journey\_read and list\_and\_subscribers\_read rights are required)                       | Required |
+| contactKey                             | The ID that uniquely identifies a subscriber/contact                                                      | Required |
+| regionEnteredEventDefinitionKey        | Set the EventDefinitionKey that you want to use for the Woosmap event `woos_geofence_entered_event`       |          |
+| regionExitedEventDefinitionKey         | Set the EventDefinitionKey that you want to use for the Woosmap event `woos_geofence_exited_event`        |          |
+| poiEventDefinitionKey                  | Set the EventDefinitionKey that you want to use for the Woosmap event `woos_POI_event`                    |          |
+| zoiClassifiedEnteredEventDefinitionKey | Set the EventDefinitionKey that you want to use for the Woosmap event `woos_zoi_classified_entered_event` |          |
+| zoiClassifiedExitedEventDefinitionKey  | Set the EventDefinitionKey that you want to use for the Woosmap event `woos_zoi_classified_exited_event`  |          |
+| visitEventDefinitionKey                | Set the EventDefinitionKey that you want to use for the Woosmap event `woos_Visit_event`                  |
+
+**Initialize the connector implementation**
+``` javascript
+    var sfmcCredentials = {
+        authenticationBaseURI: "https://xxxxxxxxxx.auth.marketingcloudapis.com",
+        restBaseURI: "https://xxxxxxxxxx.rest.marketingcloudapis.com",
+        client_id: "xxxxxxxxxxxxxxx",
+        client_secret: "xxxxxxxxxxxxxxx",
+        contactKey: "ID001",
+        regionEnteredEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        regionExitedEventDefinitionKey: "APIEvent-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    };
+    cordova.plugins.WoosmapGeofencing.setSFMCCredentials(sfmcCredentials, success, errors);
+```
+
 --- 
 
 ## [JSDoc Reference](https://wgs-cordova-jsdoc.s3.eu-west-3.amazonaws.com/index.html) 
