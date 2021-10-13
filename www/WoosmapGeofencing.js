@@ -273,6 +273,16 @@ const clearMarketingCloudWatch = (watchId) => {
   exec(success, error, "WoosmapGeofencing", "setSFMCCredentials", [arg0]);
 };
 
+/**
+ * @method setPoiRadius
+ * @description When you create a geofence around a POI, manually define the radius value (100.0) or choose the user_properties subfield that corresponds to radius value of the geofence ("radiusPOI").
+ * @param {string|int} radius can be integer or string.
+ * @param {function} success A callback function that will be called on success.
+ * @param {function} error A callback function that will be called on error.
+ */
+const setPoiRadius = (radius, success, error) => {
+  exec(success, error, "WoosmapGeofencing", "setPoiRadius", [radius]);
+};
 const WoosmapGeofencing = {
   initialize,
   getPermissionsStatus,
@@ -297,6 +307,7 @@ const WoosmapGeofencing = {
   setWoosmapApiKey,
   watchMarketingCloud,
   clearMarketingCloudWatch,
+  setPoiRadius,
   setSFMCCredentials
 };
 

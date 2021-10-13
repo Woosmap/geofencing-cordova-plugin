@@ -1326,6 +1326,36 @@ import WoosmapGeofencing
         }
     }
 
+    @objc(setPoiRadius:)
+    func setPoiRadius (command: CDVInvokedUrlCommand) {
+        var pluginResult: CDVPluginResult = CDVPluginResult()
+        if WoosmapGeofenceService.shared != nil {
+            var userInputRadiusValue: String = ""
+
+            if let radiusValue = command.arguments[0] as? Int32 {
+                userInputRadiusValue = String(radiusValue)
+            } else if let radiusValue = command.arguments[0] as? Double {
+                userInputRadiusValue = String(radiusValue)
+            } else if let radiusValue = command.arguments[0] as? String {
+                userInputRadiusValue = radiusValue
+            } else {
+                pluginResult = showWoomapError(WoosmapGeofenceMessage.invalidPOIRadius)
+            }
+            if  userInputRadiusValue != "" {
+                WoosmapGeofenceService.shared?.setPoiRadius(radius: userInputRadiusValue)
+                pluginResult = CDVPluginResult( status: CDVCommandStatus_OK,
+                                                messageAs: "OK")
+            }
+        } else {
+            pluginResult = showWoomapError(WoosmapGeofenceMessage.woosemapNotInitialized)
+        }
+
+        self.commandDelegate.send(
+            pluginResult,
+            callbackId: command.callbackId
+        )
+    }
+
 }
 
 extension CDVWoosmapGeofencing: CLLocationManagerDelegate {

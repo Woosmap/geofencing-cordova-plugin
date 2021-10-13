@@ -20,6 +20,17 @@ import AirshipCore
     private var woosmapKey: String = ""
     private var googleStaticMapKey: String = ""
     private var defaultProfile: String = ""
+    private var defaultPOIRadius: String {
+        get {
+            let defaults = UserDefaults.standard
+            let defaultPOIRadius = defaults.string(forKey: "WoosmapGeofenceService.poiradius") ?? ""
+            return  defaultPOIRadius
+        }
+        set {
+            let defaults = UserDefaults.standard
+            defaults.set(newValue, forKey: "WoosmapGeofenceService.poiradius")
+        }
+    }
 
     // Woosmap
     private let woosmapURL = "https://api.woosmap.com"
@@ -243,6 +254,9 @@ import AirshipCore
 
         // Set delagate for Marketing Cloud
         WoosmapGeofencing.shared.getLocationService().marketingCloudEventsDelegate = marketingCloudEvents
+        if defaultPOIRadius != "" {
+            WoosmapGeofencing.shared.setPoiRadius(radius: formatedRadius(radius: defaultPOIRadius))
+        }
 
         if let savedProfile = ConfigurationProfile(rawValue: defaultProfile) {
             WoosmapGeofencing.shared.startTracking(configurationProfile: savedProfile)
@@ -428,6 +442,28 @@ import AirshipCore
         }
         if requiredSatisfied {
             WoosmapGeofencing.shared.setSFMCCredentials(credentials: credentials)
+        }
+    }
+
+    /// Setting POI redious
+    /// - Parameter radius: integer or string for radius  value
+    public func setPoiRadius(radius: String) {
+        self.defaultPOIRadius = radius
+        WoosmapGeofencing.shared.setPoiRadius(radius: formatedRadius(radius: radius))
+    }
+    
+    /// Format String value to proper datatype
+    /// - Parameter radius: radius of POI
+    /// - Returns: Formatted radius
+    private func formatedRadius (radius: String) -> Any {
+        if let poiRadius = Int(radius){
+            return poiRadius
+        }
+        else if let poiRadius = Double(radius){
+            return poiRadius
+        }
+        else{
+            return  radius
         }
     }
 

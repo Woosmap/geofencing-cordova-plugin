@@ -27,6 +27,7 @@ internal struct WoosmapGeofenceMessage {
     static let locationDeleted = "Deleted"
     static let regionDeleted = "Deleted"
     static let invalidProfile = "Invalid profile"
+    static let invalidPOIRadius = "POI Radius should be an integer or a string"
     static let invalidSFMCCredentials = "Credentials cannot be empty"
     static let requried_authenticationBaseURI = "Required key missing: authenticationBaseURI"
     static let requried_restBaseURI = "Required key missing: restBaseURI"

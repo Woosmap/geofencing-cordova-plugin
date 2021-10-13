@@ -74,6 +74,7 @@ public class WoosmapGeofencing extends CordovaPlugin {
     private static final String METHOD_SET_WOOKMAP_API_KEY = "setWoosmapApiKey";
     private static final String METHOD_WATCH_MARKETING_CLOUD = "watchMarketingCloud";
     private static final String METHOD_CLEAR_MARKETING_CLOUD_WATCH = "clearMarketingCloudWatch";
+    private static final String METHOD_SET_POI_RADIUS = "setPoiRadius";
     private static final String METHOD_SET_SFMC_CREDENTIALS = "setSFMCCredentials";
 
 
@@ -231,6 +232,8 @@ public class WoosmapGeofencing extends CordovaPlugin {
         }
         else if (action.equals(METHOD_SET_WOOKMAP_API_KEY)){
             setWoosmapApiKey(args,callbackContext);
+        }else if(action.equals(METHOD_SET_POI_RADIUS)){
+            setPoiRadius(args,callbackContext);
         }
         else if (action.equals(METHOD_SET_SFMC_CREDENTIALS)){
             setSFMCCredentials(args,callbackContext);
@@ -868,6 +871,72 @@ public class WoosmapGeofencing extends CordovaPlugin {
         }
         catch (Exception ex){
             WoosmapUtil.sendErrorResponse(callbackContext, PluginResult.Status.ERROR,ex.getMessage());
+        }
+    }
+    /**
+     *Set radius of POI
+     * @param args A JSON array containing POI radius value.
+     */
+    private void setPoiRadius(JSONArray args,CallbackContext callbackContext){
+        try{
+            if (isWoosmapInitialized(callbackContext)){
+                if (args.length()==0){
+                    throw new Exception("Radius value can not be empty");
+                }
+                Object value=args.get(0);
+                if(value instanceof Integer){
+                    WoosmapSettings.poiRadius=(int) value;
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
+                    callbackContext.sendPluginResult(pluginResult);
+                }else if(value instanceof Double){
+                    int intValue=(int) Math.round((Double)value);
+                    WoosmapSettings.poiRadius=intValue;
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
+                    callbackContext.sendPluginResult(pluginResult);
+                }
+                else if(value instanceof String){
+                    String radiusValue=(String) value;
+                    if(onlyContainsNumbers(radiusValue)){
+                        WoosmapSettings.poiRadius=Integer.parseInt(radiusValue);
+                    }else if(onlyContainsDouble(radiusValue)){
+                        Double d=Double.parseDouble(radiusValue);
+                        WoosmapSettings.poiRadius=(int) Math.round(d);
+                    }
+                    else {
+                        WoosmapSettings.poiRadiusNameFromResponse=radiusValue;
+                    }
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
+                    callbackContext.sendPluginResult(pluginResult);
+                }else {
+                    WoosmapUtil.sendErrorResponse(callbackContext, PluginResult.Status.ERROR,"POI Radius should be an integer or a string.");
+                }
+            }
+        }
+        catch (Exception ex){
+            WoosmapUtil.sendErrorResponse(callbackContext,PluginResult.Status.ERROR,ex.getMessage());
+        }
+    }
+
+    /**
+     *
+     * @param text string for checking if it contains only number or not.
+     * @return true boolean value if string is only number else false.
+     */
+    private boolean onlyContainsNumbers(String text) {
+        try {
+            Long.parseLong(text);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
+
+    private boolean onlyContainsDouble(String text) {
+        try {
+            Double.parseDouble(text);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
         }
     }
 }
