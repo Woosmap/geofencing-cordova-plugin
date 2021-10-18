@@ -318,28 +318,6 @@ To stop listening:
 cordova.plugins.WoosmapGeofencing.clearAirshipWatch(regionWatchId, success, error);
 ```
 
-**Marcketing Cloud**
-
-Call `watchMarketingCloud` method to listen to custom location generated events from Woosmap Geofencing SDK useful for third party marketing cloud implementation.
-
-```
-const marketingCloudCallback = function (customData) {
-	console.log("MarketingCloud Data:" + customData);
-};
-
-const error = function (err) {
-	console.log(err);
-};
-
-var marketingCloudWatchId = cordova.plugins.WoosmapGeofencing.watchMarketingCloud(marketingCloudCallback, error);
-```
-
-To stop listening:
-
-```
-cordova.plugins.WoosmapGeofencing.clearMarketingCloudWatch(marketingCloudWatchId, success, error);
-```
-
 
 ### Adding and removing regions
 ---
