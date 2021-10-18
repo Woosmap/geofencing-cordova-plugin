@@ -1,6 +1,6 @@
 ![woosmap](https://static.intercomassets.com/avatars/4420093/square_128/apple-icon-180x180-1602843866.png?1602843866)
 # Woosmap Geofencing SDK Cordova Plugin
-This Cordova plugin extends the functionality offered by the Woosmap Geofencing Mobile SDKs. Find more about the Woosmap Geofencing SDK [here.](https://deploy-preview-386--developers-woosmap.netlify.app/products/geofencing-sdk/get-started/)
+This Cordova plugin extends the functionality offered by the Woosmap Geofencing Mobile SDKs. Find more about the Woosmap Geofencing SDK [here.](https://developers.woosmap.com/products/geofencing-sdk/get-started/)
 
 ### Getting started
 --- 
