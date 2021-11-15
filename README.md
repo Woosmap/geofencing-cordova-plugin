@@ -230,6 +230,29 @@ To stop getting Search API updates:
 cordova.plugins.WoosmapGeofencing.clearSearchApiWatch(searchAPIWatchId, success, error);
 ```
 
+**Define the radius value**
+
+When you create a Geofence around a POI (previously imported from Woosmap), manually define the radius value: 
+```javascript
+const success = function (status) {
+    console.log("Status:" + status);
+};
+const errors = function (err) {
+    console.log("Error:" + err);
+};
+cordova.plugins.WoosmapGeofencing.setPoiRadius(100,success, errors);
+```
+or choose the user_properties subfield that corresponds to radius value of the Geofence:
+```javascript
+const success = function (status) {
+    console.log("Status:" + status);
+};
+const errors = function (err) {
+    console.log("Error:" + err);
+};
+cordova.plugins.WoosmapGeofencing.setPoiRadius('radiusPOI',success, errors);
+```
+
 **Distance API**
 
 To listen to Distance API results, call `watchDistanceApi` method. Method will invoke a callback with DistanceAPI object. Method will return a watch id which can be used later to remove the callback. 
