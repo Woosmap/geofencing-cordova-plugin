@@ -1128,9 +1128,8 @@ import WoosmapGeofencing
 
     private func formatDistanceData(woosdata: DistanceResponseResult) -> [AnyHashable: Any] {
         var result: [AnyHashable: Any] = [:]
-        result["locationid"] = woosdata.locationId
-        result["distance"] = woosdata.distance.text
-        result["duration"] = woosdata.duration.text
+        result["distance"] = woosdata.distance
+        result["duration"] = woosdata.duration
         return result
     }
 
@@ -1267,7 +1266,6 @@ import WoosmapGeofencing
         var locationid: String = ""
 
         if let distance = notification.userInfo?["Distance"] as? DistanceResponseResult {
-            locationid = distance.locationId
             pluginResult  = CDVPluginResult(
                 status: CDVCommandStatus_OK,
                 messageAs: formatDistanceData(woosdata: distance)

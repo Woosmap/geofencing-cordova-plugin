@@ -36,7 +36,7 @@ import AirshipCore
     private let woosmapURL = "https://api.woosmap.com"
 
     // Woosmap SearchAPI Key
-    private var searchWoosmapAPI: String { "\(woosmapURL)/stores/search/?private_key=\(woosmapKey)&lat=%@&lng=%@&stores_by_page=1"}
+    private var searchWoosmapAPI: String { "\(woosmapURL)/stores/search/?private_key=\(woosmapKey)&lat=%@&lng=%@&stores_by_page=5"}
 
     // Woosmap DistanceAPI
     private var modeDistance = DistanceMode.driving
@@ -318,7 +318,7 @@ import AirshipCore
         let lngDest = coordinatesDest.coordinate.longitude
         let originLocation = CLLocation.init(latitude: locationOrigin.latitude,
                                              longitude: locationOrigin.longitude)
-        WoosmapGeofencing.shared.getLocationService().distanceAPIRequest(locationOrigin: originLocation,
+        WoosmapGeofencing.shared.getLocationService().calculateDistance(locationOrigin: originLocation,
                                                                          coordinatesDest: [(latDest, lngDest)],
                                                                          locationId: locationId)
     }
@@ -333,7 +333,7 @@ import AirshipCore
             let lngDest = poi.longitude
             let originLocation = CLLocation.init(latitude: locationOrigin.latitude,
                                                  longitude: locationOrigin.longitude)
-            WoosmapGeofencing.shared.getLocationService().distanceAPIRequest(locationOrigin: originLocation,
+            WoosmapGeofencing.shared.getLocationService().calculateDistance(locationOrigin: originLocation,
                                                                              coordinatesDest: [(latDest, lngDest)],
                                                                              locationId: locationId)
         }
