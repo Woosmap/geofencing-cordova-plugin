@@ -3,6 +3,7 @@ package cordova.plugin.woosmapgeofencing;
 import android.util.Log;
 
 import com.webgeoservices.woosmapgeofencing.DistanceAPIDataModel.DistanceAPI;
+import com.webgeoservices.woosmapgeofencing.database.Distance;
 import com.webgeoservices.woosmapgeofencing.Woosmap;
 
 import org.apache.cordova.CallbackContext;
@@ -14,17 +15,17 @@ import java.util.HashMap;
 /***
  * Implements Woosmap Distance API callbacks
  */
-public class WoosDistanceAPIReadyListener extends Watchable implements Woosmap.DistanceAPIReadyListener {
+public class WoosDistanceAPIReadyListener extends Watchable implements Woosmap.DistanceReadyListener {
     private static final String TAG = "WoosDistanceAPIReady";
         public static final String TYPE = "WoosDistanceAPIReadyListener";
 
     private HashMap<String, CallbackContext> watches = new HashMap<String, CallbackContext>();
 
     @Override
-    public void DistanceAPIReadyCallback(DistanceAPI distanceAPI) {
-        Log.d(TAG,distanceAPI.toString());
+    public void DistanceReadyCallback(Distance[] distances) {
+        Log.d(TAG,distances.toString());
         if (hasTrackingStarted){
-            sendResult(distanceAPI);
+            sendResult(distances);
         }
     }
 
@@ -38,9 +39,9 @@ public class WoosDistanceAPIReadyListener extends Watchable implements Woosmap.D
         watches.remove(watchId);
     }
 
-    private void sendResult(DistanceAPI distanceAPI){
+    private void sendResult(Distance[] distances){
         PluginResult pluginResult;
-        JSONObject jsonObject = getData(distanceAPI);
+        JSONObject jsonObject = getData(distances);
         for(CallbackContext callbackContext: watches.values()){
             pluginResult = new PluginResult(PluginResult.Status.OK,jsonObject);
             pluginResult.setKeepCallback(true);
@@ -48,10 +49,10 @@ public class WoosDistanceAPIReadyListener extends Watchable implements Woosmap.D
         }
     }
 
-    private JSONObject getData(DistanceAPI distanceAPI){
+    private JSONObject getData(Distance[] distances){
         try{
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("name", "distanceAPI");
+            jsonObject.put("name", "distances");
             return jsonObject;
         }
         catch (Exception ex){

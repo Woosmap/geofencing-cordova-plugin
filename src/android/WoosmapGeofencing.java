@@ -779,7 +779,7 @@ public class WoosmapGeofencing extends CordovaPlugin {
 
                 this.woosmap.setLocationReadyListener(woosLocationReadyListener);
                 this.woosmap.setSearchAPIReadyListener(woosSearchAPIReadyListener);
-                this.woosmap.setDistanceAPIReadyListener(woosDistanceAPIReadyListener);
+                this.woosmap.setDistanceReadyListener(woosDistanceAPIReadyListener);
                 this.woosmap.setVisitReadyListener(woosVisitReadyListener);
                 this.woosmap.setRegionReadyListener(woosRegionReadyListener);
                 this.woosmap.setRegionLogReadyListener(woosRegionReadyListener);
@@ -825,7 +825,7 @@ public class WoosmapGeofencing extends CordovaPlugin {
      * Adds a watch to objects in watchable collection
      * @param watchType Type of the watch to be added. Value can be either
      *                  WoosAirshipReadyListener,
-     *                  WoosDistanceAPIReadyListener,
+     *                  WoosDistanceReadyListener,
      *                  WoosLocationReadyListener,
      *                  WoosRegionReadyListener,
      *                  WoosSearchAPIReadyListener,

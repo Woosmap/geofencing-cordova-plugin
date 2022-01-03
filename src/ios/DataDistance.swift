@@ -7,26 +7,22 @@
 import Foundation
 import CoreLocation
 import WoosmapGeofencing
+import SwiftUI
 
 public class DataDistance: DistanceAPIDelegate {
+    
     public init() {}
 
-    public func distanceAPIResponseData(distanceAPIData: DistanceAPIData, locationId: String) {
-        if distanceAPIData.status == "OK" {
-            if distanceAPIData.rows?.first?.elements?.first?.status == "OK" {
-                let distance = distanceAPIData.rows?.first?.elements?.first?.distance
-                let duration = distanceAPIData.rows?.first?.elements?.first?.duration
-                if distance != nil && duration != nil {
-                    let result: DistanceResponseResult = DistanceResponseResult.init(locationId: locationId, distance: distance!, duration: duration!)
+    public func distanceAPIResponse(distance: [Distance]) {
+
+        distance.forEach({ distanceElement in
+            let distance = distanceElement.distance
+            let duration = distanceElement.duration
+                let result: DistanceResponseResult = DistanceResponseResult.init(distance: distance, duration: duration)
                     NotificationCenter.default.post(name: .distanceCalculated, object: self, userInfo: ["Distance": result])
-//                    print(distance?.value ?? 0)
-//                    print(duration?.text ?? 0)
-                }
-            }
-        } else {
-            let result: DistanceResponseError = DistanceResponseError.init(locationId: locationId, error: distanceAPIData.status ?? "-")
-            NotificationCenter.default.post(name: .distanceCalculated, object: self, userInfo: ["Distance": result])
-        }
+                    // print(distance?.value ?? 0)
+                    // print(duration?.text ?? 0)
+        })
     }
 
     public func distanceAPIError(error: String) {
@@ -39,11 +35,9 @@ extension Notification.Name {
 }
 
 class DistanceResponseResult {
-    var locationId: String = ""
-    var distance: Distance
-    var duration: Distance
-    required init(locationId: String, distance: Distance, duration: Distance) {
-        self.locationId = locationId
+    var distance: Int
+    var duration: Int
+    required init(distance: Int, duration: Int) {
         self.distance = distance
         self.duration = duration
     }
